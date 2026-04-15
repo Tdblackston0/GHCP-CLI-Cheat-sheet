@@ -305,6 +305,19 @@ body {
     letter-spacing: 0.5px;
 }
 
+/* 2-column tables: first column fixed width */
+.command-table:not(.cols-3) th:first-child,
+.command-table:not(.cols-3) td:first-child {
+    width: 280px;
+    min-width: 280px;
+}
+
+/* 3-column tables: equal width distribution */
+.command-table.cols-3 th,
+.command-table.cols-3 td {
+    width: 33.33%;
+}
+
 .command-table tbody td {
     padding: 12px 15px;
     border-bottom: 1px solid var(--border-light);
