@@ -370,20 +370,16 @@
                             <td>Run AI code review on your changes</td>
                         </tr>
                         <tr>
-                            <td><code class="copyable">/tests</code></td>
-                            <td>Generate tests for your code</td>
+                            <td><code class="copyable">/undo</code> or <code>/rewind</code></td>
+                            <td>Rewind the last turn and revert file changes</td>
                         </tr>
                         <tr>
-                            <td><code class="copyable">/fix</code></td>
-                            <td>Attempt to fix issues in your code</td>
+                            <td><code class="copyable">/pr [view|create|fix|auto]</code></td>
+                            <td>Operate on pull requests for the current branch</td>
                         </tr>
                         <tr>
-                            <td><code class="copyable">/explain</code></td>
-                            <td>Get an explanation of code</td>
-                        </tr>
-                        <tr>
-                            <td><code class="copyable">/refactor</code></td>
-                            <td>Refactor selected code</td>
+                            <td><code class="copyable">/copy</code></td>
+                            <td>Copy the last response to the clipboard</td>
                         </tr>
                     </tbody>
                 </table>
@@ -442,12 +438,32 @@
                     </thead>
                     <tbody>
                         <tr>
+                            <td><code class="copyable">/plan [PROMPT]</code></td>
+                            <td>Create an implementation plan before coding</td>
+                        </tr>
+                        <tr>
+                            <td><code class="copyable">/fleet [PROMPT]</code></td>
+                            <td>Enable parallel subagent execution of parts of a task</td>
+                        </tr>
+                        <tr>
                             <td><code class="copyable">/delegate TASK</code></td>
                             <td>Push session to Copilot coding agent on GitHub</td>
                         </tr>
                         <tr>
-                            <td><code class="copyable">/run CMD</code></td>
-                            <td>Run shell commands within the session</td>
+                            <td><code class="copyable">/remote</code></td>
+                            <td>Enable remote access from GitHub.com and GitHub Mobile</td>
+                        </tr>
+                        <tr>
+                            <td><code class="copyable">/research TOPIC</code></td>
+                            <td>Run a deep research investigation using GitHub search and web sources</td>
+                        </tr>
+                        <tr>
+                            <td><code class="copyable">/tasks</code></td>
+                            <td>View and manage background tasks (subagents and shell sessions)</td>
+                        </tr>
+                        <tr>
+                            <td><code class="copyable">/skills</code></td>
+                            <td>Manage skills for enhanced agent capabilities</td>
                         </tr>
                         <tr>
                             <td><code class="copyable">/changelog [VERSION]</code></td>
