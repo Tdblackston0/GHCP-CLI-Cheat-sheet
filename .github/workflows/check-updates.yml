@@ -1,0 +1,266 @@
+# Weekly workflow to check for GitHub Copilot CLI updates
+# This workflow runs every Monday at 9:00 AM UTC and creates issues for any detected updates
+
+name: Check for Copilot CLI Updates
+
+on:
+  schedule:
+    # Run every Monday at 9:00 AM UTC
+    - cron: '0 9 * * 1'
+  
+  # Allow manual triggering for testing
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  check-updates:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Check for Copilot CLI Updates
+        id: check-updates
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          # Create a script to check for updates
+          cat << 'EOF' > check-updates.js
+          const https = require('https');
+          const fs = require('fs');
+
+          // Keywords to search for in changelog
+          const COPILOT_CLI_KEYWORDS = [
+            'copilot cli',
+            'copilot-cli',
+            'github copilot cli',
+            '@github/copilot',
+            'copilot command line',
+            'copilot terminal'
+          ];
+
+          // Fetch GitHub Blog Changelog RSS
+          function fetchChangelog() {
+            return new Promise((resolve, reject) => {
+              const options = {
+                hostname: 'github.blog',
+                path: '/changelog/feed/',
+                method: 'GET',
+                headers: {
+                  'User-Agent': 'GitHub-Actions-Bot'
+                }
+              };
+
+              https.get(options, (res) => {
+                let data = '';
+                res.on('data', chunk => data += chunk);
+                res.on('end', () => resolve(data));
+              }).on('error', reject);
+            });
+          }
+
+          // Parse RSS feed for Copilot CLI updates
+          function parseForCopilotCLIUpdates(rssData) {
+            const updates = [];
+            const oneWeekAgo = new Date();
+            oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
+
+            // Simple XML parsing for RSS items
+            const itemRegex = /<item>([\s\S]*?)<\/item>/g;
+            let match;
+
+            while ((match = itemRegex.exec(rssData)) !== null) {
+              const itemContent = match[1];
+              
+              // Extract title
+              const titleMatch = itemContent.match(/<title><!\[CDATA\[(.*?)\]\]><\/title>/) || 
+                                 itemContent.match(/<title>(.*?)<\/title>/);
+              const title = titleMatch ? titleMatch[1] : '';
+
+              // Extract link
+              const linkMatch = itemContent.match(/<link>(.*?)<\/link>/);
+              const link = linkMatch ? linkMatch[1] : '';
+
+              // Extract description
+              const descMatch = itemContent.match(/<description><!\[CDATA\[([\s\S]*?)\]\]><\/description>/) ||
+                               itemContent.match(/<description>([\s\S]*?)<\/description>/);
+              const description = descMatch ? descMatch[1] : '';
+
+              // Extract publication date
+              const pubDateMatch = itemContent.match(/<pubDate>(.*?)<\/pubDate>/);
+              const pubDate = pubDateMatch ? new Date(pubDateMatch[1]) : null;
+
+              // Check if this is a Copilot CLI related update from the past week
+              const fullContent = (title + ' ' + description).toLowerCase();
+              const isCopilotCLI = COPILOT_CLI_KEYWORDS.some(keyword => 
+                fullContent.includes(keyword.toLowerCase())
+              );
+
+              if (isCopilotCLI && pubDate && pubDate > oneWeekAgo) {
+                updates.push({
+                  title: title,
+                  link: link,
+                  description: description.replace(/<[^>]*>/g, '').substring(0, 500),
+                  pubDate: pubDate.toISOString()
+                });
+              }
+            }
+
+            return updates;
+          }
+
+          async function main() {
+            try {
+              console.log('Fetching GitHub Blog Changelog...');
+              const rssData = await fetchChangelog();
+              
+              console.log('Parsing for Copilot CLI updates...');
+              const updates = parseForCopilotCLIUpdates(rssData);
+
+              console.log(`Found ${updates.length} Copilot CLI update(s) from the past week.`);
+
+              // Output updates as JSON for the next step
+              fs.writeFileSync('updates.json', JSON.stringify(updates, null, 2));
+              
+              // Set output for GitHub Actions
+              const hasUpdates = updates.length > 0;
+              console.log(`::set-output name=has_updates::${hasUpdates}`);
+              console.log(`::set-output name=update_count::${updates.length}`);
+              
+              // Using environment file for newer GitHub Actions
+              const envFile = process.env.GITHUB_OUTPUT;
+              if (envFile) {
+                fs.appendFileSync(envFile, `has_updates=${hasUpdates}\n`);
+                fs.appendFileSync(envFile, `update_count=${updates.length}\n`);
+              }
+
+            } catch (error) {
+              console.error('Error checking for updates:', error);
+              process.exit(1);
+            }
+          }
+
+          main();
+          EOF
+          
+          node check-updates.js
+
+      - name: Create Issues for Updates
+        if: steps.check-updates.outputs.has_updates == 'true'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          cat << 'EOF' > create-issues.js
+          const fs = require('fs');
+          const https = require('https');
+
+          const updates = JSON.parse(fs.readFileSync('updates.json', 'utf8'));
+          const repo = process.env.GITHUB_REPOSITORY;
+          const token = process.env.GITHUB_TOKEN;
+
+          async function createIssue(update) {
+            const issueBody = `## 🚀 New GitHub Copilot CLI Update Detected
+
+          **Source:** [${update.title}](${update.link})
+
+          **Published:** ${new Date(update.pubDate).toLocaleDateString()}
+
+          ### Summary
+          ${update.description}
+
+          ---
+
+          ### Action Required
+          - [ ] Review the update details at the source link
+          - [ ] Determine which sections of the cheat sheet need updating
+          - [ ] Add the \`approved\` label to trigger the automatic update workflow
+
+          ### Instructions for Copilot Agent
+          When this issue is approved (by adding the \`approved\` label), the Copilot agent will:
+          1. Read this issue for context
+          2. Research the specific changes
+          3. Update the relevant sections in \`index.html\`
+          4. Create a pull request with the changes
+
+          ---
+          *This issue was automatically created by the weekly update checker.*
+          `;
+
+            const issueTitle = `📦 Copilot CLI Update: ${update.title.substring(0, 80)}`;
+
+            const data = JSON.stringify({
+              title: issueTitle,
+              body: issueBody,
+              labels: ['copilot-cli-update', 'needs-review']
+            });
+
+            const [owner, repoName] = repo.split('/');
+
+            return new Promise((resolve, reject) => {
+              const options = {
+                hostname: 'api.github.com',
+                path: `/repos/${owner}/${repoName}/issues`,
+                method: 'POST',
+                headers: {
+                  'User-Agent': 'GitHub-Actions-Bot',
+                  'Authorization': `token ${token}`,
+                  'Content-Type': 'application/json',
+                  'Accept': 'application/vnd.github.v3+json'
+                }
+              };
+
+              const req = https.request(options, (res) => {
+                let responseData = '';
+                res.on('data', chunk => responseData += chunk);
+                res.on('end', () => {
+                  if (res.statusCode >= 200 && res.statusCode < 300) {
+                    console.log(`Created issue: ${issueTitle}`);
+                    resolve(JSON.parse(responseData));
+                  } else {
+                    console.error(`Failed to create issue: ${res.statusCode}`);
+                    console.error(responseData);
+                    reject(new Error(`HTTP ${res.statusCode}`));
+                  }
+                });
+              });
+
+              req.on('error', reject);
+              req.write(data);
+              req.end();
+            });
+          }
+
+          async function main() {
+            console.log(`Creating ${updates.length} issue(s)...`);
+            
+            for (const update of updates) {
+              try {
+                await createIssue(update);
+                // Small delay between API calls
+                await new Promise(r => setTimeout(r, 1000));
+              } catch (error) {
+                console.error(`Error creating issue for: ${update.title}`, error);
+              }
+            }
+            
+            console.log('Done creating issues.');
+          }
+
+          main();
+          EOF
+          
+          node create-issues.js
+
+      - name: No Updates Found
+        if: steps.check-updates.outputs.has_updates != 'true'
+        run: |
+          echo "No Copilot CLI updates found in the past week."
+          echo "The cheat sheet is up to date!"

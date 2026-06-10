@@ -1,0 +1,16 @@
+# Copilot Agent Setup Steps
+# This file configures the GitHub Copilot coding agent environment
+
+name: "Copilot Setup Steps"
+
+steps:
+  # Install Node.js for any JavaScript tooling
+  - name: Setup Node.js
+    uses: actions/setup-node@v4
+    with:
+      node-version: '20'
+
+  # Install dependencies if needed
+  - name: Install dependencies
+    run: |
+      echo "No additional dependencies required for this static site"

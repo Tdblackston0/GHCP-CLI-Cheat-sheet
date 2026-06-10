@@ -1,0 +1,92 @@
+# Workflow to update the onepager when an issue is approved
+# Triggers when the 'approved' label is added to an issue
+
+name: Update Onepager on Approval
+
+on:
+  issues:
+    types: [labeled]
+
+permissions:
+  contents: write
+  issues: write
+  pull-requests: write
+
+jobs:
+  update-onepager:
+    # Only run when the 'approved' label is added
+    if: github.event.label.name == 'approved'
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Get Issue Details
+        id: issue
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+          ISSUE_TITLE: ${{ github.event.issue.title }}
+          ISSUE_BODY: ${{ github.event.issue.body }}
+        run: |
+          echo "Issue #$ISSUE_NUMBER approved for update"
+          echo "Title: $ISSUE_TITLE"
+          
+          # Save issue details for the Copilot agent
+          echo "$ISSUE_BODY" > /tmp/issue_context.md
+          
+          # Set outputs
+          echo "issue_number=$ISSUE_NUMBER" >> $GITHUB_OUTPUT
+          echo "issue_title=$ISSUE_TITLE" >> $GITHUB_OUTPUT
+
+      - name: Create Branch for Update
+        id: branch
+        env:
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+        run: |
+          BRANCH_NAME="copilot-update/issue-${ISSUE_NUMBER}"
+          git checkout -b "$BRANCH_NAME"
+          echo "branch_name=$BRANCH_NAME" >> $GITHUB_OUTPUT
+
+      - name: Trigger Copilot Agent Update
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const issueNumber = ${{ github.event.issue.number }};
+            const issueTitle = `${{ github.event.issue.title }}`;
+            const issueBody = `${{ github.event.issue.body }}`;
+            
+            // Add a comment indicating the update process has started
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: issueNumber,
+              body: `🤖 **Copilot Agent Update Started**
+            
+            The approved update is now being processed. A Copilot agent will:
+            1. Analyze the update requirements from this issue
+            2. Research the specific changes from official sources
+            3. Update the relevant sections in the cheat sheet
+            4. Create a pull request with the changes
+            
+            You will be notified when the pull request is ready for review.
+            
+            ---
+            *Triggered by adding the \`approved\` label*`
+            });
+            
+            console.log(`Comment added to issue #${issueNumber}`);
+
+      - name: Dispatch Copilot Agent Workflow
+        uses: peter-evans/repository-dispatch@v3
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          event-type: copilot-update-request
+          client-payload: |
+            {
+              "issue_number": "${{ github.event.issue.number }}",
+              "issue_title": "${{ github.event.issue.title }}",
+              "branch_name": "${{ steps.branch.outputs.branch_name }}"
+            }

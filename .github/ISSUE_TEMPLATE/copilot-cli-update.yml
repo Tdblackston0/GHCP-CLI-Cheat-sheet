@@ -1,0 +1,85 @@
+name: 📦 Copilot CLI Update
+description: Report a GitHub Copilot CLI update that needs to be added to the cheat sheet
+title: "📦 Copilot CLI Update: "
+labels: ["copilot-cli-update", "needs-review"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Report a GitHub Copilot CLI Update
+        Use this template to report a new feature, change, or update to GitHub Copilot CLI.
+
+  - type: input
+    id: source
+    attributes:
+      label: Source URL
+      description: Link to the official announcement or documentation
+      placeholder: https://github.blog/changelog/...
+    validations:
+      required: true
+
+  - type: textarea
+    id: summary
+    attributes:
+      label: Update Summary
+      description: Briefly describe what changed in GitHub Copilot CLI
+      placeholder: "New slash command /review added for code review..."
+    validations:
+      required: true
+
+  - type: dropdown
+    id: section
+    attributes:
+      label: Cheat Sheet Section
+      description: Which section(s) of the cheat sheet should be updated?
+      multiple: true
+      options:
+        - Installation
+        - Authentication
+        - Modes of Operation
+        - Keyboard Shortcuts
+        - Command-Line Flags
+        - Slash Commands
+        - Special Prefixes
+        - Custom Agents
+        - MCP (Model Context Protocol)
+        - Plugins
+        - Custom Instructions
+        - Quick Recipes
+        - Power Tips
+        - Troubleshooting
+        - Resources
+    validations:
+      required: true
+
+  - type: textarea
+    id: details
+    attributes:
+      label: Detailed Changes
+      description: |
+        Provide specific details about what should be added or changed.
+        Include any new commands, syntax, or examples.
+      placeholder: |
+        New command: `/review`
+        Description: Opens an interactive code review session
+        Example: `/review --file main.py`
+    validations:
+      required: true
+
+  - type: textarea
+    id: additional
+    attributes:
+      label: Additional Context
+      description: Any other information that might be helpful
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: verification
+    attributes:
+      label: Verification
+      options:
+        - label: I have verified this information from official GitHub sources
+          required: true
+        - label: This update is not already in the cheat sheet
+          required: true

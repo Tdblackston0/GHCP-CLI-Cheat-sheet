@@ -1,0 +1,179 @@
+# Copilot Agent workflow for processing approved updates
+# This workflow uses GitHub Copilot coding agent to update the cheat sheet
+
+name: Copilot Agent Update
+
+on:
+  repository_dispatch:
+    types: [copilot-update-request]
+
+  # Allow manual triggering with an issue number
+  workflow_dispatch:
+    inputs:
+      issue_number:
+        description: 'Issue number to process'
+        required: true
+        type: number
+      branch_name:
+        description: 'Branch name for the update'
+        required: false
+        type: string
+        default: ''
+
+permissions:
+  contents: write
+  issues: write
+  pull-requests: write
+
+jobs:
+  copilot-update:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set Variables
+        id: vars
+        run: |
+          if [ "${{ github.event_name }}" = "repository_dispatch" ]; then
+            echo "issue_number=${{ github.event.client_payload.issue_number }}" >> $GITHUB_OUTPUT
+            echo "branch_name=${{ github.event.client_payload.branch_name }}" >> $GITHUB_OUTPUT
+          else
+            ISSUE_NUM="${{ github.event.inputs.issue_number }}"
+            BRANCH="${{ github.event.inputs.branch_name }}"
+            if [ -z "$BRANCH" ]; then
+              BRANCH="copilot-update/issue-${ISSUE_NUM}"
+            fi
+            echo "issue_number=$ISSUE_NUM" >> $GITHUB_OUTPUT
+            echo "branch_name=$BRANCH" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Fetch Issue Details
+        id: issue
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ISSUE_NUMBER: ${{ steps.vars.outputs.issue_number }}
+        run: |
+          # Fetch issue details using GitHub API
+          ISSUE_DATA=$(gh api repos/${{ github.repository }}/issues/$ISSUE_NUMBER)
+          
+          echo "Issue Title: $(echo $ISSUE_DATA | jq -r '.title')"
+          
+          # Extract issue body and save for context
+          echo "$ISSUE_DATA" | jq -r '.body' > /tmp/issue_body.md
+          echo "$ISSUE_DATA" | jq -r '.title' > /tmp/issue_title.txt
+
+      - name: Create/Checkout Branch
+        env:
+          BRANCH_NAME: ${{ steps.vars.outputs.branch_name }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          
+          # Try to checkout existing branch or create new one
+          git fetch origin || true
+          if git show-ref --verify --quiet refs/remotes/origin/$BRANCH_NAME; then
+            git checkout $BRANCH_NAME
+          else
+            git checkout -b $BRANCH_NAME
+          fi
+
+      - name: Create Copilot Instructions File
+        env:
+          ISSUE_NUMBER: ${{ steps.vars.outputs.issue_number }}
+        run: |
+          # Create a temporary instructions file for Copilot
+          cat << 'EOF' > /tmp/copilot-task.md
+          # Task: Update GitHub Copilot CLI Cheat Sheet
+
+          ## Context
+          An update to GitHub Copilot CLI has been detected and approved.
+          
+          ## Issue Details
+          EOF
+          
+          echo "### Issue #$ISSUE_NUMBER" >> /tmp/copilot-task.md
+          echo "" >> /tmp/copilot-task.md
+          cat /tmp/issue_title.txt >> /tmp/copilot-task.md
+          echo "" >> /tmp/copilot-task.md
+          cat /tmp/issue_body.md >> /tmp/copilot-task.md
+          
+          cat << 'EOF' >> /tmp/copilot-task.md
+          
+          ## Instructions
+          1. Review the update details above
+          2. Identify which section(s) in index.html need updating
+          3. Make the necessary changes following the existing HTML structure
+          4. Ensure changes maintain accessibility and styling conventions
+          
+          ## Files to Update
+          - `index.html` - Main cheat sheet content
+          - If needed: `styles.css` for any styling changes
+          - If needed: `script.js` for any JavaScript changes
+          EOF
+          
+          echo "Copilot task instructions created"
+          cat /tmp/copilot-task.md
+
+      - name: Comment Update In Progress
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ISSUE_NUMBER: ${{ steps.vars.outputs.issue_number }}
+        run: |
+          gh api repos/${{ github.repository }}/issues/$ISSUE_NUMBER/comments \
+            --method POST \
+            -f body="🔄 **Update in Progress**
+            
+          The Copilot agent is now analyzing the update requirements and preparing changes.
+          
+          Branch: \`${{ steps.vars.outputs.branch_name }}\`
+          
+          *This process may take a few minutes...*"
+
+      - name: Assign to Copilot
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            // This step assigns the issue to be processed by Copilot
+            // In practice, this integrates with Copilot coding agent
+            const issueNumber = parseInt('${{ steps.vars.outputs.issue_number }}');
+            
+            // Add a label to indicate Copilot is working on it
+            await github.rest.issues.addLabels({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: issueNumber,
+              labels: ['copilot-processing']
+            });
+            
+            console.log(`Issue #${issueNumber} marked for Copilot processing`);
+
+      - name: Push Branch
+        env:
+          BRANCH_NAME: ${{ steps.vars.outputs.branch_name }}
+        run: |
+          # Push the branch (even if no changes yet, to set up for Copilot)
+          git push -u origin $BRANCH_NAME || echo "Branch already up to date"
+
+      - name: Final Status Comment
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ISSUE_NUMBER: ${{ steps.vars.outputs.issue_number }}
+          BRANCH_NAME: ${{ steps.vars.outputs.branch_name }}
+        run: |
+          gh api repos/${{ github.repository }}/issues/$ISSUE_NUMBER/comments \
+            --method POST \
+            -f body="✅ **Ready for Copilot Agent**
+            
+          The update workflow has prepared the branch for Copilot agent processing.
+          
+          **Next Steps:**
+          1. Assign \`@copilot\` to this issue to have the Copilot coding agent make the updates
+          2. Or manually make changes to branch \`$BRANCH_NAME\`
+          3. Once changes are ready, a PR will be created automatically
+          
+          **Branch:** \`$BRANCH_NAME\`
+          
+          To trigger Copilot agent, comment: \`@copilot please update the cheat sheet based on this issue\`"

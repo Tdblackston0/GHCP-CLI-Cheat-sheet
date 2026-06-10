@@ -1,0 +1,49 @@
+# Workflow to set up required labels for the update workflow
+# Run this once manually to create the necessary labels
+
+name: Setup Labels
+
+on:
+  workflow_dispatch:
+
+permissions:
+  issues: write
+
+jobs:
+  create-labels:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Create Labels
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          # Define labels as JSON
+          LABELS='[
+            {"name": "copilot-cli-update", "color": "7057ff", "description": "GitHub Copilot CLI update detected"},
+            {"name": "needs-review", "color": "fbca04", "description": "Needs human review before processing"},
+            {"name": "approved", "color": "0e8a16", "description": "Approved for Copilot agent to process"},
+            {"name": "copilot-processing", "color": "1d76db", "description": "Currently being processed by Copilot agent"},
+            {"name": "update-complete", "color": "5319e7", "description": "Update has been completed"}
+          ]'
+          
+          echo "$LABELS" | jq -c '.[]' | while read -r label; do
+            NAME=$(echo "$label" | jq -r '.name')
+            COLOR=$(echo "$label" | jq -r '.color')
+            DESCRIPTION=$(echo "$label" | jq -r '.description')
+            
+            echo "Creating label: $NAME"
+            
+            # Try to create the label, or update if it exists
+            gh api repos/${{ github.repository }}/labels \
+              --method POST \
+              -f name="$NAME" \
+              -f color="$COLOR" \
+              -f description="$DESCRIPTION" || \
+            gh api repos/${{ github.repository }}/labels/"$NAME" \
+              --method PATCH \
+              -f color="$COLOR" \
+              -f description="$DESCRIPTION" || \
+            echo "Label $NAME may already exist with same settings"
+          done
+          
+          echo "Labels setup complete!"
