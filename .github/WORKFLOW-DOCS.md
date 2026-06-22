@@ -6,9 +6,10 @@ This document explains the automated workflow for keeping the GitHub Copilot CLI
 
 The workflow uses GitHub Actions and GitHub Copilot coding agent to automatically:
 1. **Detect updates** to GitHub Copilot CLI from the official changelog
-2. **Create issues** for each detected update
-3. **Process approved updates** using Copilot agent
-4. **Update the cheat sheet** with new information
+2. **Review required documentation sources** against the current website resources
+3. **Create issues** for each detected update or missing resource
+4. **Process approved updates** using Copilot agent
+5. **Update the cheat sheet** with new information
 
 ## Workflow Components
 
@@ -19,7 +20,8 @@ The workflow uses GitHub Actions and GitHub Copilot coding agent to automaticall
 **What it does:**
 - Fetches the GitHub Blog Changelog RSS feed
 - Searches for Copilot CLI-related updates from the past week
-- Creates GitHub issues for each detected update
+- Checks required review sites against `index.html`
+- Creates GitHub issues for each detected update or missing required resource
 
 **Keywords monitored:**
 - `copilot cli`
@@ -28,6 +30,9 @@ The workflow uses GitHub Actions and GitHub Copilot coding agent to automaticall
 - `@github/copilot`
 - `copilot command line`
 - `copilot terminal`
+
+**Required review sites monitored:**
+- `https://docs.github.com/en/copilot/reference/copilot-cli-reference/cli-command-reference`
 
 ### 2. Update Onepager (`update-onepager.yml`)
 

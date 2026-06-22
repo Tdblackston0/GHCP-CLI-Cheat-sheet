@@ -47,6 +47,15 @@ jobs:
             'copilot terminal'
           ];
 
+          // Official docs pages to verify against the cheat sheet Resources section
+          const REVIEW_SITES = [
+            {
+              title: 'CLI Command Reference',
+              link: 'https://docs.github.com/en/copilot/reference/copilot-cli-reference/cli-command-reference',
+              section: 'Resources'
+            }
+          ];
+
           // Fetch GitHub Blog Changelog RSS
           function fetchChangelog() {
             return new Promise((resolve, reject) => {
@@ -117,15 +126,35 @@ jobs:
             return updates;
           }
 
+          function findMissingReviewSites(indexHtml) {
+            return REVIEW_SITES
+              .filter(site => !indexHtml.includes(site.link))
+              .map(site => ({
+                type: 'missing-resource',
+                title: site.title,
+                link: site.link,
+                section: site.section,
+                description: `${site.title} is not currently linked in index.html.`,
+                pubDate: new Date().toISOString()
+              }));
+          }
+
           async function main() {
             try {
               console.log('Fetching GitHub Blog Changelog...');
               const rssData = await fetchChangelog();
               
               console.log('Parsing for Copilot CLI updates...');
-              const updates = parseForCopilotCLIUpdates(rssData);
+              const changelogUpdates = parseForCopilotCLIUpdates(rssData);
+              console.log(`Found ${changelogUpdates.length} Copilot CLI changelog update(s) from the past week.`);
 
-              console.log(`Found ${updates.length} Copilot CLI update(s) from the past week.`);
+              console.log('Checking required review sites against index.html...');
+              const indexHtml = fs.readFileSync('index.html', 'utf8');
+              const missingReviewSites = findMissingReviewSites(indexHtml);
+              console.log(`Found ${missingReviewSites.length} required review site(s) missing from the website.`);
+
+              const updates = [...changelogUpdates, ...missingReviewSites];
+              console.log(`Total issue candidate(s): ${updates.length}`);
 
               // Output updates as JSON for the next step
               fs.writeFileSync('updates.json', JSON.stringify(updates, null, 2));
@@ -165,9 +194,75 @@ jobs:
           const updates = JSON.parse(fs.readFileSync('updates.json', 'utf8'));
           const repo = process.env.GITHUB_REPOSITORY;
           const token = process.env.GITHUB_TOKEN;
+          const [owner, repoName] = repo.split('/');
 
-          async function createIssue(update) {
-            const issueBody = `## 🚀 New GitHub Copilot CLI Update Detected
+          function requestGitHub(path, method = 'GET', body = null) {
+            return new Promise((resolve, reject) => {
+              const options = {
+                hostname: 'api.github.com',
+                path,
+                method,
+                headers: {
+                  'User-Agent': 'GitHub-Actions-Bot',
+                  'Authorization': `token ${token}`,
+                  'Content-Type': 'application/json',
+                  'Accept': 'application/vnd.github.v3+json'
+                }
+              };
+
+              const req = https.request(options, (res) => {
+                let responseData = '';
+                res.on('data', chunk => responseData += chunk);
+                res.on('end', () => {
+                  if (res.statusCode >= 200 && res.statusCode < 300) {
+                    resolve(responseData ? JSON.parse(responseData) : null);
+                  } else {
+                    console.error(`GitHub API request failed (${method} ${path}): ${res.statusCode}`);
+                    console.error(responseData);
+                    reject(new Error(`HTTP ${res.statusCode}`));
+                  }
+                });
+              });
+
+              req.on('error', reject);
+              if (body) {
+                req.write(JSON.stringify(body));
+              }
+              req.end();
+            });
+          }
+
+          function buildIssuePayload(update) {
+            if (update.type === 'missing-resource') {
+              return {
+                title: `📚 Missing CLI Resource: ${update.title.substring(0, 80)}`,
+                body: `## 📚 Required Resource Missing from Cheat Sheet
+
+          **Source:** [${update.title}](${update.link})
+          **Expected Section:** ${update.section}
+
+          ### What was checked
+          - Weekly workflow reviewed required documentation sources
+          - Compared required source links against the current \`index.html\` Resources section
+
+          ### Result
+          ${update.description}
+
+          ### Action Required
+          - [ ] Review the source page for any commands/details to include
+          - [ ] Add this resource to the cheat sheet Resources section if still missing
+          - [ ] Update related cheat sheet content if the docs include new CLI behavior
+          - [ ] Add the \`approved\` label to trigger the automatic update workflow
+
+          ---
+          *This issue was automatically created by the weekly update checker.*`,
+                labels: ['copilot-cli-update', 'needs-review']
+              };
+            }
+
+            return {
+              title: `📦 Copilot CLI Update: ${update.title.substring(0, 80)}`,
+              body: `## 🚀 New GitHub Copilot CLI Update Detected
 
           **Source:** [${update.title}](${update.link})
 
@@ -192,58 +287,54 @@ jobs:
 
           ---
           *This issue was automatically created by the weekly update checker.*
-          `;
-
-            const issueTitle = `📦 Copilot CLI Update: ${update.title.substring(0, 80)}`;
-
-            const data = JSON.stringify({
-              title: issueTitle,
-              body: issueBody,
+          `,
               labels: ['copilot-cli-update', 'needs-review']
-            });
+            };
+          }
 
-            const [owner, repoName] = repo.split('/');
+          function extractSourceUrl(body) {
+            const match = body && body.match(/\*\*Source:\*\* \[[^\]]+\]\(([^)]+)\)/);
+            return match ? match[1] : null;
+          }
 
-            return new Promise((resolve, reject) => {
-              const options = {
-                hostname: 'api.github.com',
-                path: `/repos/${owner}/${repoName}/issues`,
-                method: 'POST',
-                headers: {
-                  'User-Agent': 'GitHub-Actions-Bot',
-                  'Authorization': `token ${token}`,
-                  'Content-Type': 'application/json',
-                  'Accept': 'application/vnd.github.v3+json'
-                }
-              };
-
-              const req = https.request(options, (res) => {
-                let responseData = '';
-                res.on('data', chunk => responseData += chunk);
-                res.on('end', () => {
-                  if (res.statusCode >= 200 && res.statusCode < 300) {
-                    console.log(`Created issue: ${issueTitle}`);
-                    resolve(JSON.parse(responseData));
-                  } else {
-                    console.error(`Failed to create issue: ${res.statusCode}`);
-                    console.error(responseData);
-                    reject(new Error(`HTTP ${res.statusCode}`));
-                  }
-                });
-              });
-
-              req.on('error', reject);
-              req.write(data);
-              req.end();
+          function isDuplicateIssue(payload, openIssues) {
+            const sourceUrl = extractSourceUrl(payload.body);
+            return openIssues.some(issue => {
+              const sameTitle = issue.title === payload.title;
+              const hasSameSource = Boolean(sourceUrl && issue.body && issue.body.includes(sourceUrl));
+              return sameTitle || hasSameSource;
             });
           }
 
+          async function createIssue(payload) {
+            const issue = await requestGitHub(`/repos/${owner}/${repoName}/issues`, 'POST', payload);
+            console.log(`Created issue: ${payload.title}`);
+            return issue;
+          }
+
           async function main() {
-            console.log(`Creating ${updates.length} issue(s)...`);
+            if (updates.length === 0) {
+              console.log('No updates to create issues for.');
+              return;
+            }
+
+            const openIssues = await requestGitHub(`/repos/${owner}/${repoName}/issues?state=open&labels=copilot-cli-update&per_page=100`);
+            console.log(`Loaded ${openIssues.length} open issue(s) with copilot-cli-update label.`);
+            console.log(`Evaluating ${updates.length} potential issue(s)...`);
             
             for (const update of updates) {
               try {
-                await createIssue(update);
+                const payload = buildIssuePayload(update);
+                if (isDuplicateIssue(payload, openIssues)) {
+                  console.log(`Skipping duplicate issue: ${payload.title}`);
+                  continue;
+                }
+
+                const createdIssue = await createIssue(payload);
+                openIssues.push({
+                  title: createdIssue.title,
+                  body: createdIssue.body || payload.body
+                });
                 // Small delay between API calls
                 await new Promise(r => setTimeout(r, 1000));
               } catch (error) {
@@ -262,5 +353,5 @@ jobs:
       - name: No Updates Found
         if: steps.check-updates.outputs.has_updates != 'true'
         run: |
-          echo "No Copilot CLI updates found in the past week."
+          echo "No Copilot CLI changelog updates or missing required review sites found."
           echo "The cheat sheet is up to date!"
