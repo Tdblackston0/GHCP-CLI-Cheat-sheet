@@ -102,8 +102,8 @@ jobs:
           cat << 'EOF' >> /tmp/copilot-task.md
           
           ## Instructions
-          1. Review the update details above
-          2. Identify which section(s) in index.html need updating
+          1. Review the update details above, paying close attention to the **New Features Found** list
+          2. Identify which section(s) in index.html need updating based on those features
           3. Make the necessary changes following the existing HTML structure
           4. Ensure changes maintain accessibility and styling conventions
           

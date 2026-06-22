@@ -76,6 +76,31 @@ jobs:
             });
           }
 
+          // Extract bullet-point feature list from HTML description
+          function extractFeatureBullets(htmlDescription) {
+            const bullets = [];
+
+            // Try <li> elements first
+            const liRegex = /<li[^>]*>([\s\S]*?)<\/li>/gi;
+            let liMatch;
+            while ((liMatch = liRegex.exec(htmlDescription)) !== null) {
+              const text = liMatch[1].replace(/<[^>]*>/g, '').trim();
+              if (text) bullets.push(text);
+            }
+
+            // Fall back to lines that look like bullets or sentences if no <li> found
+            if (bullets.length === 0) {
+              const plain = htmlDescription.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim();
+              // Split on sentence boundaries and take the first few meaningful ones
+              plain.split(/(?<=[.!?])\s+/).forEach(sentence => {
+                const s = sentence.trim();
+                if (s.length > 20 && s.length < 200) bullets.push(s);
+              });
+            }
+
+            return bullets.slice(0, 10); // cap at 10 bullets
+          }
+
           // Parse RSS feed for Copilot CLI updates
           function parseForCopilotCLIUpdates(rssData) {
             const updates = [];
@@ -98,26 +123,28 @@ jobs:
               const linkMatch = itemContent.match(/<link>(.*?)<\/link>/);
               const link = linkMatch ? linkMatch[1] : '';
 
-              // Extract description
+              // Extract description (raw HTML preserved for feature extraction)
               const descMatch = itemContent.match(/<description><!\[CDATA\[([\s\S]*?)\]\]><\/description>/) ||
                                itemContent.match(/<description>([\s\S]*?)<\/description>/);
-              const description = descMatch ? descMatch[1] : '';
+              const rawDescription = descMatch ? descMatch[1] : '';
 
               // Extract publication date
               const pubDateMatch = itemContent.match(/<pubDate>(.*?)<\/pubDate>/);
               const pubDate = pubDateMatch ? new Date(pubDateMatch[1]) : null;
 
               // Check if this is a Copilot CLI related update from the past week
-              const fullContent = (title + ' ' + description).toLowerCase();
+              const fullContent = (title + ' ' + rawDescription).toLowerCase();
               const isCopilotCLI = COPILOT_CLI_KEYWORDS.some(keyword => 
                 fullContent.includes(keyword.toLowerCase())
               );
 
               if (isCopilotCLI && pubDate && pubDate > oneWeekAgo) {
+                const featureBullets = extractFeatureBullets(rawDescription);
                 updates.push({
                   title: title,
                   link: link,
-                  description: description.replace(/<[^>]*>/g, '').substring(0, 500),
+                  description: rawDescription.replace(/<[^>]*>/g, '').trim().substring(0, 500),
+                  featureBullets: featureBullets,
                   pubDate: pubDate.toISOString()
                 });
               }
@@ -271,17 +298,23 @@ jobs:
           ### Summary
           ${update.description}
 
+          ### ✨ New Features Found
+          ${update.featureBullets && update.featureBullets.length > 0
+            ? update.featureBullets.map(b => `- ${b}`).join('\n          ')
+            : '- *(See source link for full feature details)*'}
+
           ---
 
           ### Action Required
           - [ ] Review the update details at the source link
+          - [ ] Verify the feature list above and add/correct any items
           - [ ] Determine which sections of the cheat sheet need updating
           - [ ] Add the \`approved\` label to trigger the automatic update workflow
 
           ### Instructions for Copilot Agent
           When this issue is approved (by adding the \`approved\` label), the Copilot agent will:
-          1. Read this issue for context
-          2. Research the specific changes
+          1. Read this issue for context, including the **New Features Found** list above
+          2. Research the specific changes from the source link
           3. Update the relevant sections in \`index.html\`
           4. Create a pull request with the changes
 

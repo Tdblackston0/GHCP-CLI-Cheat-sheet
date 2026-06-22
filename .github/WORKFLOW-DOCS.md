@@ -20,8 +20,9 @@ The workflow uses GitHub Actions and GitHub Copilot coding agent to automaticall
 **What it does:**
 - Fetches the GitHub Blog Changelog RSS feed
 - Searches for Copilot CLI-related updates from the past week
+- **Extracts a list of new features** from each changelog entry (pulled from `<li>` items or sentence boundaries in the announcement)
 - Checks required review sites against `index.html`
-- Creates GitHub issues for each detected update or missing required resource
+- Creates GitHub issues for each detected update or missing required resource; changelog issues include a **New Features Found** section with bullet points
 
 **Keywords monitored:**
 - `copilot cli`
@@ -79,8 +80,8 @@ The workflow uses GitHub Actions and GitHub Copilot coding agent to automaticall
 
 ### Automatic Process
 
-1. **Weekly Check:** Every Monday, the workflow checks for updates
-2. **Issue Created:** If updates are found, issues are created with details
+1. **Weekly Check:** Every Monday, the workflow checks for updates and extracts any new feature highlights from the changelog
+2. **Issue Created:** If updates are found, issues are created with a **New Features Found** bullet list and full details
 3. **Review:** Maintainers review the issue and verify the update
 4. **Approve:** Add the `approved` label to trigger processing
 5. **Copilot Updates:** Assign Copilot to make the changes
