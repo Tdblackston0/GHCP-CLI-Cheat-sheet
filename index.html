@@ -3,16 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="GitHub Copilot Upskill and CLI Cheat Sheet - practical VS Code and terminal workflows with a quick CLI reference">
-    <meta name="keywords" content="GitHub Copilot, Copilot CLI, VS Code, upskill, cheat sheet, commands, reference">
-    <title>GitHub Copilot Upskill + CLI Cheat Sheet</title>
+    <meta name="description" content="GitHub Copilot Cheat Sheet - practical VS Code and CLI workflows with quick references">
+    <meta name="keywords" content="GitHub Copilot, Copilot CLI, VS Code, cheat sheet, commands, reference, workflows">
+    <title>GitHub Copilot Cheat Sheet</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <header class="header">
         <div class="header-content">
-            <h1>🚀 GitHub Copilot Upskill + CLI Cheat Sheet</h1>
-            <p class="tagline">A practical website for learning Copilot workflows and quickly finding CLI commands.</p>
+            <h1>🚀 GitHub Copilot Cheat Sheet</h1>
+            <p class="tagline">A practical website for VS Code and CLI workflows, commands, and quick-reference guidance.</p>
             <div class="search-container">
                 <input type="text" id="search" placeholder="🔍 Search workflows, commands, shortcuts, or topics..." aria-label="Search">
                 <button type="button" id="clear-search" class="clear-btn" aria-label="Clear search">✕</button>
@@ -46,6 +46,7 @@
             <li><a href="#instructions">📁 Instructions</a></li>
             <li><a href="#recipes">🎯 Recipes</a></li>
             <li><a href="#tips">⚡ Power Tips</a></li>
+            <li><a href="#token-optimization">🪙 Tokens</a></li>
             <li><a href="#troubleshooting">🆘 Help</a></li>
             <li><a href="#resources">📚 Resources</a></li>
         </ul>
@@ -58,11 +59,11 @@
                 <span class="toggle-icon">−</span>
             </div>
             <div class="section-content">
-                <p class="lead">Use this page in two ways: learn practical GitHub Copilot workflows first, then jump to the CLI cheat sheet when you need a command or shortcut.</p>
+                <p class="lead">Use this page as a combined VS Code and CLI cheat sheet: learn practical workflows, then jump to the command reference when you need syntax or shortcuts.</p>
                 <div class="toc-grid">
                     <div class="toc-card">
-                        <h3>📘 Upskill Guide</h3>
-                        <p>Practical VS Code, troubleshooting, discovery, and prompt workflows from <code>GitHub-Copilot-Upskill.md</code>.</p>
+                        <h3>📘 VS Code + Workflow Cheat Sheet</h3>
+                        <p>Practical VS Code, troubleshooting, discovery, and prompt workflows adapted from <code>GitHub-Copilot-Upskill.md</code>.</p>
                         <ul>
                             <li><a href="#learn-overview">What you'll learn</a></li>
                             <li><a href="#vscode-copilot">GitHub Copilot in VS Code</a></li>
@@ -81,12 +82,13 @@
                             <li><a href="#authentication">Authentication</a></li>
                             <li><a href="#slash-commands">Slash commands</a></li>
                             <li><a href="#recipes">Quick recipes</a></li>
+                            <li><a href="#token-optimization">Token optimization</a></li>
                             <li><a href="#resources">Resources</a></li>
                         </ul>
                     </div>
                 </div>
                 <div class="tip-box">
-                    <strong>Navigation tip:</strong> Use the sticky table of contents, search box, collapsible sections, and back-to-top button to move around quickly without blending the learning guide and command reference.
+                    <strong>Navigation tip:</strong> Use the sticky table of contents, search box, collapsible sections, and back-to-top button to move around quickly without blending the learning guide and command reference. Items without a scope badge can be used in both VS Code and the CLI; only VS Code-only or CLI-only items are marked.
                 </div>
             </div>
         </section>
@@ -94,8 +96,8 @@
         <div class="content-group upskill-group" aria-labelledby="upskill-title">
             <div class="group-header">
                 <p class="eyebrow">Part 1</p>
-                <h2 id="upskill-title">📘 GitHub Copilot Upskill Guide</h2>
-                <p>Learn how to use Copilot as a collaborator across VS Code, terminal troubleshooting, code discovery, and daily development tasks.</p>
+                <h2 id="upskill-title">📘 VS Code + Workflow Cheat Sheet</h2>
+                <p>Use Copilot as a collaborator across VS Code, terminal troubleshooting, code discovery, and daily development tasks.</p>
             </div>
 
             <section id="learn-overview" class="section">
@@ -115,11 +117,11 @@
 
             <section id="vscode-copilot" class="section">
                 <div class="section-header" role="button" tabindex="0" aria-expanded="true">
-                    <h2>💻 GitHub Copilot in VS Code</h2>
+                    <h2>💻 GitHub Copilot in VS Code <span class="scope-badge vscode-only">VS Code only</span></h2>
                     <span class="toggle-icon">−</span>
                 </div>
                 <div class="section-content">
-                    <h3>Ways to Interact</h3>
+                    <h3>Ways to Interact <span class="scope-badge vscode-only">VS Code only</span></h3>
                     <table class="command-table cols-3">
                         <thead>
                             <tr><th>Mode</th><th>Trigger</th><th>Best For</th></tr>
@@ -133,7 +135,7 @@
                         </tbody>
                     </table>
 
-                    <h3>Chat Participants (<code>@</code>)</h3>
+                    <h3>Chat Participants (<code>@</code>) <span class="scope-badge vscode-only">VS Code only</span></h3>
                     <table class="command-table cols-3">
                         <thead>
                             <tr><th>Participant</th><th>What it does</th><th>Example</th></tr>
@@ -167,7 +169,7 @@
                         <code class="copyable block">@workspace /tests for src/services/pipeline.py</code>
                     </div>
 
-                    <h3>Context Variables (<code>#</code>)</h3>
+                    <h3>Context Variables (<code>#</code>) <span class="scope-badge vscode-only">VS Code only</span></h3>
                     <table class="command-table">
                         <thead><tr><th>Variable</th><th>Purpose</th></tr></thead>
                         <tbody>
@@ -198,7 +200,7 @@
                 </div>
                 <div class="section-content">
                     <div class="recipe-card">
-                        <h4>Explain a Failing Terminal Command</h4>
+                        <h4>Explain a Failing Terminal Command <span class="scope-badge vscode-only">VS Code only</span></h4>
                         <ol>
                             <li>Run the command in the VS Code integrated terminal.</li>
                             <li>Open Copilot Chat.</li>
@@ -207,11 +209,11 @@
                         </ol>
                     </div>
                     <div class="recipe-card">
-                        <h4>Fix an Error from the Problems Panel</h4>
+                        <h4>Fix an Error from the Problems Panel <span class="scope-badge vscode-only">VS Code only</span></h4>
                         <code class="copyable block">/fix #problems</code>
                     </div>
                     <div class="recipe-card">
-                        <h4>Understand a Stack Trace</h4>
+                        <h4>Understand a Stack Trace <span class="scope-badge vscode-only">VS Code only</span></h4>
                         <ol>
                             <li>Select the stack trace in the terminal.</li>
                             <li>Ask Copilot to connect the trace back to likely responsible files.</li>
@@ -219,7 +221,7 @@
                         <code class="copyable block">@workspace explain #terminalSelection and point me to the file most likely responsible</code>
                     </div>
                     <div class="recipe-card">
-                        <h4>Debug with the Debugger</h4>
+                        <h4>Debug with the Debugger <span class="scope-badge vscode-only">VS Code only</span></h4>
                         <p>Set a breakpoint, pause execution, then use inline chat to ask why a variable has an unexpected value.</p>
                         <code class="copyable block">why is variable X null here?</code>
                     </div>
@@ -290,17 +292,17 @@
             <div class="group-header">
                 <p class="eyebrow">Part 2</p>
                 <h2 id="cli-title">⚡ GitHub Copilot CLI Cheat Sheet</h2>
-                <p>Use this separate reference when you need installation steps, commands, shortcuts, flags, agents, MCP, plugins, recipes, and troubleshooting.</p>
+                <p>Use this CLI-focused reference when you need installation steps, commands, shortcuts, flags, agents, MCP, plugins, recipes, and troubleshooting.</p>
             </div>
 
             <section id="cli-overview" class="section">
                 <div class="section-header" role="button" tabindex="0" aria-expanded="true">
-                    <h2>⌨️ CLI Overview</h2>
+                    <h2>⌨️ CLI Overview <span class="scope-badge cli-only">CLI only</span></h2>
                     <span class="toggle-icon">−</span>
                 </div>
                 <div class="section-content">
                     <p><code>gh copilot</code> and Copilot CLI bring Copilot to the terminal for scripting, ops work, shell help, Git help, and quick explanations away from VS Code.</p>
-                    <h3>Two Core <code>gh copilot</code> Commands</h3>
+                    <h3>Two Core <code>gh copilot</code> Commands <span class="scope-badge cli-only">CLI only</span></h3>
                     <table class="command-table">
                         <thead><tr><th>Command</th><th>Purpose</th></tr></thead>
                         <tbody>
@@ -319,7 +321,7 @@
             </section>
 
             <section id="installation" class="section">
-                <div class="section-header" role="button" tabindex="0" aria-expanded="true"><h2>📦 Installation</h2><span class="toggle-icon">−</span></div>
+                <div class="section-header" role="button" tabindex="0" aria-expanded="true"><h2>📦 Installation <span class="scope-badge cli-only">CLI only</span></h2><span class="toggle-icon">−</span></div>
                 <div class="section-content">
                     <table class="command-table">
                         <thead><tr><th>Platform</th><th>Command</th></tr></thead>
@@ -337,7 +339,7 @@
             </section>
 
             <section id="authentication" class="section">
-                <div class="section-header" role="button" tabindex="0" aria-expanded="true"><h2>🔐 Authentication</h2><span class="toggle-icon">−</span></div>
+                <div class="section-header" role="button" tabindex="0" aria-expanded="true"><h2>🔐 Authentication <span class="scope-badge cli-only">CLI only</span></h2><span class="toggle-icon">−</span></div>
                 <div class="section-content">
                     <table class="command-table">
                         <thead><tr><th>Command</th><th>Description</th></tr></thead>
@@ -352,7 +354,7 @@
             </section>
 
             <section id="modes" class="section">
-                <div class="section-header" role="button" tabindex="0" aria-expanded="true"><h2>🎮 Modes of Operation</h2><span class="toggle-icon">−</span></div>
+                <div class="section-header" role="button" tabindex="0" aria-expanded="true"><h2>🎮 Modes of Operation <span class="scope-badge cli-only">CLI only</span></h2><span class="toggle-icon">−</span></div>
                 <div class="section-content">
                     <table class="command-table cols-3">
                         <thead><tr><th>Mode</th><th>How to Start</th><th>Description</th></tr></thead>
@@ -368,7 +370,7 @@
             </section>
 
             <section id="shortcuts" class="section">
-                <div class="section-header" role="button" tabindex="0" aria-expanded="true"><h2>⌨️ Keyboard Shortcuts</h2><span class="toggle-icon">−</span></div>
+                <div class="section-header" role="button" tabindex="0" aria-expanded="true"><h2>⌨️ Keyboard Shortcuts <span class="scope-badge cli-only">CLI only</span></h2><span class="toggle-icon">−</span></div>
                 <div class="section-content">
                     <table class="command-table shortcuts-table">
                         <thead><tr><th>Shortcut</th><th>Action</th></tr></thead>
@@ -389,7 +391,7 @@
             </section>
 
             <section id="flags" class="section">
-                <div class="section-header" role="button" tabindex="0" aria-expanded="true"><h2>🔧 Command-Line Flags</h2><span class="toggle-icon">−</span></div>
+                <div class="section-header" role="button" tabindex="0" aria-expanded="true"><h2>🔧 Command-Line Flags <span class="scope-badge cli-only">CLI only</span></h2><span class="toggle-icon">−</span></div>
                 <div class="section-content">
                     <table class="command-table">
                         <thead><tr><th>Flag</th><th>Description</th></tr></thead>
@@ -415,7 +417,7 @@
             </section>
 
             <section id="slash-commands" class="section">
-                <div class="section-header" role="button" tabindex="0" aria-expanded="true"><h2>📝 Slash Commands</h2><span class="toggle-icon">−</span></div>
+                <div class="section-header" role="button" tabindex="0" aria-expanded="true"><h2>📝 Slash Commands <span class="scope-badge cli-only">CLI only</span></h2><span class="toggle-icon">−</span></div>
                 <div class="section-content">
                     <h3>Session Management</h3>
                     <table class="command-table"><thead><tr><th>Command</th><th>Description</th></tr></thead><tbody>
@@ -456,7 +458,7 @@
             </section>
 
             <section id="prefixes" class="section">
-                <div class="section-header" role="button" tabindex="0" aria-expanded="true"><h2>🔤 Special Prefixes</h2><span class="toggle-icon">−</span></div>
+                <div class="section-header" role="button" tabindex="0" aria-expanded="true"><h2>🔤 Special Prefixes <span class="scope-badge cli-only">CLI only</span></h2><span class="toggle-icon">−</span></div>
                 <div class="section-content">
                     <table class="command-table cols-3"><thead><tr><th>Prefix</th><th>Purpose</th><th>Example</th></tr></thead><tbody>
                         <tr><td><code class="copyable">@</code></td><td>Include file contents in prompt</td><td><code class="copyable">@src/Program.cs Explain this file</code></td></tr>
@@ -476,7 +478,13 @@
                         <tr><td><code class="copyable">copilot --agent=NAME</code></td><td>Start a session with a specific agent</td></tr>
                         <tr><td><code class="copyable">copilot --agent=NAME -p "..."</code></td><td>One-shot prompt with agent</td></tr>
                     </tbody></table>
-                    <div class="agents-grid"><h4>Example agents:</h4><div class="agent-card"><span class="agent-icon">🏗️</span><strong>blueprint / architect</strong><span class="agent-role">System architecture and design</span></div><div class="agent-card"><span class="agent-icon">🔨</span><strong>forge / developer</strong><span class="agent-role">Code implementation</span></div><div class="agent-card"><span class="agent-icon">🛡️</span><strong>shield / reviewer</strong><span class="agent-role">Code review and security</span></div><div class="agent-card"><span class="agent-icon">📚</span><strong>sage / doc-writer</strong><span class="agent-role">Documentation generation</span></div></div>
+                    <div class="agents-grid">
+                        <h4>Example agents from Awesome Copilot:</h4>
+                        <a class="agent-card" href="https://awesome-copilot.github.com/agents/arch.agent.md" target="_blank" rel="noopener noreferrer"><span class="agent-icon">🏗️</span><strong>Senior Cloud Architect</strong><span class="agent-role">Architecture design, diagrams, and documentation</span></a>
+                        <a class="agent-card" href="https://awesome-copilot.github.com/agents/debug.agent.md" target="_blank" rel="noopener noreferrer"><span class="agent-icon">🐞</span><strong>Debug Mode Instructions</strong><span class="agent-role">Systematic bug investigation and resolution</span></a>
+                        <a class="agent-card" href="https://awesome-copilot.github.com/agents/mentor.agent.md" target="_blank" rel="noopener noreferrer"><span class="agent-icon">🧑‍🏫</span><strong>Mentor mode</strong><span class="agent-role">Guidance, critical thinking, and solution review</span></a>
+                        <a class="agent-card" href="https://awesome-copilot.github.com/agents/ember.agent.md" target="_blank" rel="noopener noreferrer"><span class="agent-icon">🔥</span><strong>Ember</strong><span class="agent-role">AI partnership, focus, and collaboration patterns</span></a>
+                    </div>
                 </div>
             </section>
 
@@ -491,10 +499,17 @@
             </section>
 
             <section id="plugins" class="section">
-                <div class="section-header" role="button" tabindex="0" aria-expanded="true"><h2>🧩 Plugins</h2><span class="toggle-icon">−</span></div>
+                <div class="section-header" role="button" tabindex="0" aria-expanded="true"><h2>🧩 Plugins <span class="scope-badge cli-only">CLI only</span></h2><span class="toggle-icon">−</span></div>
                 <div class="section-content">
+                    <p>Plugins extend Copilot CLI with packaged agents, skills, commands, and local assets that add specialized workflows without manually copying files into each repository.</p>
                     <table class="command-table"><thead><tr><th>Command</th><th>Description</th></tr></thead><tbody><tr><td><code class="copyable">copilot plugin marketplace list</code></td><td>List available plugin marketplaces</td></tr><tr><td><code class="copyable">copilot plugin marketplace add NAME</code></td><td>Add a plugin marketplace</td></tr><tr><td><code class="copyable">copilot plugin install NAME</code></td><td>Install a plugin</td></tr><tr><td><code class="copyable">copilot plugin list</code></td><td>List installed plugins</td></tr></tbody></table>
                     <div class="tip-box"><strong>Default marketplaces:</strong> <code>copilot-plugins</code>, <code>awesome-copilot</code></div>
+                    <div class="plugin-examples">
+                        <h4>Awesome Copilot plugin examples:</h4>
+                        <a class="plugin-card" href="https://awesome-copilot.github.com/plugins/arch/" target="_blank" rel="noopener noreferrer"><strong>Arch</strong><span>Architecture and modernization toolkit for locally-cloned repositories.</span><code>copilot plugin install arch@awesome-copilot</code></a>
+                        <a class="plugin-card" href="https://awesome-copilot.github.com/plugins/ember/" target="_blank" rel="noopener noreferrer"><strong>Ember</strong><span>AI partner plugin with an agent and skills for collaboration and focus.</span><code>copilot plugin install ember@awesome-copilot</code></a>
+                        <a class="plugin-card" href="https://awesome-copilot.github.com/plugins/napkin/" target="_blank" rel="noopener noreferrer"><strong>Napkin</strong><span>Visual whiteboard that opens in a browser and shares sketches back with Copilot CLI.</span><code>copilot plugin install napkin@awesome-copilot</code></a>
+                    </div>
                 </div>
             </section>
 
@@ -524,8 +539,30 @@
                 <div class="section-content"><div class="tips-list"><div class="tip-item"><span class="tip-number">1</span><div class="tip-content"><strong>Batch context loading:</strong> Reference multiple files at once with <code class="copyable">@src/models/User.cs @src/models/Task.cs Compare these models</code>.</div></div><div class="tip-item"><span class="tip-number">2</span><div class="tip-content"><strong>Context management:</strong> Use <code class="copyable">/compact</code> when context fills up.</div></div><div class="tip-item"><span class="tip-number">3</span><div class="tip-content"><strong>Tab completion:</strong> Type <code>@</code> then use Tab to autocomplete file paths.</div></div><div class="tip-item"><span class="tip-number">4</span><div class="tip-content"><strong>Escape hatch:</strong> Use <code>!</code> for quick shell commands.</div></div><div class="tip-item"><span class="tip-number">5</span><div class="tip-content"><strong>Model switching:</strong> Use <code class="copyable">/model</code> to balance speed and capability.</div></div></div></div>
             </section>
 
+            <section id="token-optimization" class="section">
+                <div class="section-header" role="button" tabindex="0" aria-expanded="true"><h2>🪙 Token Optimization</h2><span class="toggle-icon">−</span></div>
+                <div class="section-content">
+                    <p>Token optimization means giving Copilot enough relevant context to help while avoiding noisy, oversized prompts that waste context window space.</p>
+                    <table class="command-table">
+                        <thead><tr><th>Practice</th><th>Why it helps</th></tr></thead>
+                        <tbody>
+                            <tr><td><strong>Start narrow</strong></td><td>Attach the smallest useful file, selection, command output, or error before expanding to broader codebase context.</td></tr>
+                            <tr><td><strong>Summarize long output</strong></td><td>Paste only the failing section, stack trace, or representative rows instead of full logs.</td></tr>
+                            <tr><td><strong>Use explicit goals</strong></td><td>State the task, constraints, and desired output so Copilot spends fewer turns inferring intent.</td></tr>
+                            <tr><td><strong>Reset stale context</strong></td><td>Use <code class="copyable">/clear</code> for topic changes and <code class="copyable">/compact</code> when a long session needs summarizing.</td></tr>
+                            <tr><td><strong>Prefer references over copies</strong></td><td>Use scoped references like files, selections, or CLI file mentions where available instead of pasting entire documents.</td></tr>
+                            <tr><td><strong>Ask for a plan first</strong></td><td>A plan reveals missing context early, before spending tokens on code or commands in the wrong direction.</td></tr>
+                        </tbody>
+                    </table>
+                    <div class="example-box">
+                        <strong>Efficient prompt pattern:</strong>
+                        <code class="copyable block">Goal: fix the failing auth test. Context: #problems and the relevant auth test only. Constraint: do not change public API. First explain likely causes, then propose the smallest fix.</code>
+                    </div>
+                </div>
+            </section>
+
             <section id="troubleshooting" class="section">
-                <div class="section-header" role="button" tabindex="0" aria-expanded="true"><h2>🆘 CLI Troubleshooting</h2><span class="toggle-icon">−</span></div>
+                <div class="section-header" role="button" tabindex="0" aria-expanded="true"><h2>🆘 CLI Troubleshooting <span class="scope-badge cli-only">CLI only</span></h2><span class="toggle-icon">−</span></div>
                 <div class="section-content"><table class="command-table troubleshooting-table"><thead><tr><th>Issue</th><th>Solution</th></tr></thead><tbody><tr><td><code>copilot: command not found</code></td><td>Ensure npm global bin is in PATH: <code class="copyable">npm bin -g</code></td></tr><tr><td>Custom agents not appearing</td><td>Run from repo root and check <code>.github/agents/</code> exists</td></tr><tr><td>MCP server not connecting</td><td>Verify Node.js 22+ and check JSON config syntax</td></tr><tr><td>Session context full</td><td>Run <code class="copyable">/compact</code></td></tr><tr><td>Authentication expired</td><td>Run <code class="copyable">/login</code> or <code class="copyable">copilot login</code></td></tr></tbody></table></div>
             </section>
 

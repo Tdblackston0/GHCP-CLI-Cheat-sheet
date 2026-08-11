@@ -1018,3 +1018,70 @@ kbd {
         background-color: transparent;
     }
 }
+
+/* Scope labels and plugin cards */
+.scope-badge {
+    display: inline-flex;
+    align-items: center;
+    margin-left: 8px;
+    padding: 3px 8px;
+    border-radius: 999px;
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    vertical-align: middle;
+}
+
+.scope-badge.vscode-only {
+    color: #d2a8ff;
+    background-color: rgba(163, 113, 247, 0.16);
+    border: 1px solid rgba(163, 113, 247, 0.45);
+}
+
+.scope-badge.cli-only {
+    color: #7ee787;
+    background-color: rgba(35, 134, 54, 0.16);
+    border: 1px solid rgba(35, 134, 54, 0.45);
+}
+
+.agent-card {
+    color: var(--text-primary);
+    text-decoration: none;
+}
+
+.plugin-examples {
+    margin-top: 20px;
+}
+
+.plugin-examples h4 {
+    color: var(--text-secondary);
+    margin-bottom: 15px;
+}
+
+.plugin-card {
+    display: grid;
+    gap: 8px;
+    padding: 16px;
+    margin-bottom: 12px;
+    color: var(--text-primary);
+    text-decoration: none;
+    background-color: var(--bg-tertiary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    transition: all var(--transition);
+}
+
+.plugin-card:hover {
+    border-color: var(--link-color);
+    background-color: var(--highlight-bg);
+    transform: translateY(-2px);
+}
+
+.plugin-card span {
+    color: var(--text-secondary);
+}
+
+.plugin-card code {
+    width: fit-content;
+}
