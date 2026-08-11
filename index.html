@@ -41,6 +41,7 @@
             <li><a href="#slash-commands">📝 Slash Commands</a></li>
             <li><a href="#prefixes">🔤 Prefixes</a></li>
             <li><a href="#agents">🤖 Agents</a></li>
+            <li><a href="#skills">🎯 Skills</a></li>
             <li><a href="#mcp">🔌 MCP</a></li>
             <li><a href="#plugins">🧩 Plugins</a></li>
             <li><a href="#instructions">📁 Instructions</a></li>
@@ -82,6 +83,7 @@
                             <li><a href="#installation">Installation</a></li>
                             <li><a href="#slash-commands">Slash commands</a></li>
                             <li><a href="#agents">Custom agents</a></li>
+                            <li><a href="#skills">Skills</a></li>
                             <li><a href="#recipes">Quick recipes</a></li>
                             <li><a href="#token-optimization">Token optimization</a></li>
                             <li><a href="#resources">Resources</a></li>
@@ -1011,7 +1013,7 @@
                 <span class="toggle-icon">−</span>
             </div>
             <div class="section-content">
-                <p>Custom agents are specialized AI personas defined in <code>.github/agents/</code>.</p>
+                <p>Custom agents are specialized AI personas you can define locally in <code>.github/agents/</code> or explore from the Awesome Copilot catalog.</p>
                 <table class="command-table">
                     <thead>
                         <tr>
@@ -1038,24 +1040,75 @@
                     <h4>Example Agents:</h4>
                     <div class="agent-card">
                         <span class="agent-icon">🏗️</span>
-                        <strong>blueprint / architect</strong>
-                        <span class="agent-role">System architecture &amp; design</span>
+                        <strong>api-architect</strong>
+                        <span class="agent-role">API architecture and design guidance</span>
                     </div>
                     <div class="agent-card">
-                        <span class="agent-icon">🔨</span>
-                        <strong>forge / developer</strong>
-                        <span class="agent-role">Code implementation</span>
+                        <span class="agent-icon">♿</span>
+                        <strong>accessibility-runtime-tester</strong>
+                        <span class="agent-role">Runtime accessibility testing support</span>
                     </div>
                     <div class="agent-card">
-                        <span class="agent-icon">🛡️</span>
-                        <strong>shield / reviewer</strong>
-                        <span class="agent-role">Code review &amp; security</span>
+                        <span class="agent-icon">☁️</span>
+                        <strong>aws-cloud-expert</strong>
+                        <span class="agent-role">AWS cloud architecture and operations</span>
                     </div>
                     <div class="agent-card">
-                        <span class="agent-icon">📚</span>
-                        <strong>sage / doc-writer</strong>
-                        <span class="agent-role">Documentation generation</span>
+                        <span class="agent-icon">💻</span>
+                        <strong>CSharpExpert</strong>
+                        <span class="agent-role">C# and .NET implementation guidance</span>
                     </div>
+                </div>
+                <div class="tip-box">
+                    <strong>Live examples:</strong>
+                    <ul>
+                        <li><a href="https://awesome-copilot.github.com/agents/" target="_blank" rel="noopener noreferrer">Awesome Copilot Agents catalog</a></li>
+                        <li><a href="https://github.com/github/awesome-copilot/tree/main/agents" target="_blank" rel="noopener noreferrer">Source agent definitions</a></li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Skills Section -->
+        <section id="skills" class="section">
+            <div class="section-header" role="button" tabindex="0" aria-expanded="true">
+                <h2>🎯 Skills <span class="scope-badge cli-only">CLI only</span></h2>
+                <span class="toggle-icon">−</span>
+            </div>
+            <div class="section-content">
+                <p>Skills package reusable task instructions and context. Use <code>/skills</code> in-session and Awesome Copilot for real-world skill examples.</p>
+                <table class="command-table">
+                    <thead>
+                        <tr>
+                            <th>Command</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code class="copyable">/skills</code></td>
+                            <td>View and manage skills for enhanced agent capabilities</td>
+                        </tr>
+                        <tr>
+                            <td><code class="copyable">copilot plugin install &lt;plugin-name&gt;@awesome-copilot</code></td>
+                            <td>Install plugin bundles that include curated skills</td>
+                        </tr>
+                        <tr>
+                            <td><code class="copyable">copilot plugin list</code></td>
+                            <td>Verify installed plugins and available bundled skills</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="example-box">
+                    <strong>Example skills from Awesome Copilot:</strong>
+                    <code class="copyable block">acquire-codebase-knowledge, add-educational-comments, architecture-blueprint-generator</code>
+                </div>
+                <div class="tip-box">
+                    <strong>Live examples:</strong>
+                    <ul>
+                        <li><a href="https://awesome-copilot.github.com/skills/" target="_blank" rel="noopener noreferrer">Awesome Copilot Skills catalog</a></li>
+                        <li><a href="https://awesome-copilot.github.com/learning-hub/creating-effective-skills/" target="_blank" rel="noopener noreferrer">Skill design walkthrough</a></li>
+                    </ul>
                 </div>
             </div>
         </section>
@@ -1095,7 +1148,14 @@
                 </div>
                 <div class="example-box">
                     <strong>Example MCP query:</strong>
-                    <code class="copyable block">Using @microsoft-learn, explain EF Core migrations</code>
+                    <code class="copyable block">Using @github-agentic-workflows, inspect status for my current workflow run</code>
+                </div>
+                <div class="tip-box">
+                    <strong>Live examples:</strong>
+                    <ul>
+                        <li><a href="https://awesome-copilot.github.com/learning-hub/understanding-mcp-servers/" target="_blank" rel="noopener noreferrer">Awesome Copilot MCP learning guide</a></li>
+                        <li><a href="https://github.com/github/awesome-copilot/blob/main/mcp.json" target="_blank" rel="noopener noreferrer">Awesome Copilot MCP server config example</a></li>
+                    </ul>
                 </div>
             </div>
         </section>
@@ -1135,6 +1195,19 @@
                 </table>
                 <div class="tip-box">
                     <strong>Default marketplaces:</strong> <code>copilot-plugins</code>, <code>awesome-copilot</code>
+                </div>
+                <div class="example-box">
+                    <strong>Example installs from Awesome Copilot:</strong>
+                    <code class="copyable block">copilot plugin install awesome-copilot@awesome-copilot
+copilot plugin install ai-team-orchestration@awesome-copilot
+copilot plugin install csharp-dotnet-development@awesome-copilot</code>
+                </div>
+                <div class="tip-box">
+                    <strong>Live examples:</strong>
+                    <ul>
+                        <li><a href="https://awesome-copilot.github.com/plugins/" target="_blank" rel="noopener noreferrer">Awesome Copilot Plugins catalog</a></li>
+                        <li><a href="https://awesome-copilot.github.com/learning-hub/installing-and-using-plugins/" target="_blank" rel="noopener noreferrer">Plugin install walkthrough</a></li>
+                    </ul>
                 </div>
             </div>
         </section>
