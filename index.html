@@ -3,901 +3,548 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="GitHub Copilot CLI Cheat Sheet - Your quick reference guide to mastering GitHub Copilot CLI">
-    <meta name="keywords" content="GitHub Copilot, CLI, cheat sheet, commands, reference">
-    <title>GitHub Copilot CLI Cheat Sheet</title>
+    <meta name="description" content="GitHub Copilot Upskill and CLI Cheat Sheet - practical VS Code and terminal workflows with a quick CLI reference">
+    <meta name="keywords" content="GitHub Copilot, Copilot CLI, VS Code, upskill, cheat sheet, commands, reference">
+    <title>GitHub Copilot Upskill + CLI Cheat Sheet</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <header class="header">
         <div class="header-content">
-            <h1>🚀 GitHub Copilot CLI Cheat Sheet</h1>
-            <p class="tagline">Your quick reference guide to mastering GitHub Copilot CLI</p>
+            <h1>🚀 GitHub Copilot Upskill + CLI Cheat Sheet</h1>
+            <p class="tagline">A practical website for learning Copilot workflows and quickly finding CLI commands.</p>
             <div class="search-container">
-                <input type="text" id="search" placeholder="🔍 Search commands, shortcuts, or topics..." aria-label="Search">
+                <input type="text" id="search" placeholder="🔍 Search workflows, commands, shortcuts, or topics..." aria-label="Search">
                 <button type="button" id="clear-search" class="clear-btn" aria-label="Clear search">✕</button>
             </div>
         </div>
     </header>
 
-    <nav class="nav" id="nav">
-        <button type="button" class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation">
+    <nav class="nav" id="nav" aria-label="Table of contents">
+        <button type="button" class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
             <span class="hamburger"></span>
         </button>
         <ul class="nav-list" id="nav-list">
-            <li><a href="#installation">📦 Installation</a></li>
-            <li><a href="#authentication">🔐 Authentication</a></li>
+            <li><a href="#table-of-contents">🧭 Start</a></li>
+            <li><a href="#learn-overview">🎯 Learn</a></li>
+            <li><a href="#vscode-copilot">💻 VS Code</a></li>
+            <li><a href="#troubleshooting-workflows">🛠️ Troubleshooting</a></li>
+            <li><a href="#prompt-patterns">🧠 Prompts</a></li>
+            <li><a href="#discovery-cheat-sheet">✅ Discovery</a></li>
+            <li><a href="#upskill-tips">🤝 Tips</a></li>
+            <li><a href="#cli-overview">⌨️ CLI Overview</a></li>
+            <li><a href="#installation">📦 Install</a></li>
+            <li><a href="#authentication">🔐 Auth</a></li>
             <li><a href="#modes">🎮 Modes</a></li>
             <li><a href="#shortcuts">⌨️ Shortcuts</a></li>
             <li><a href="#flags">🔧 Flags</a></li>
-            <li><a href="#slash-commands">📝 Slash Commands</a></li>
+            <li><a href="#slash-commands">📝 Slash</a></li>
             <li><a href="#prefixes">🔤 Prefixes</a></li>
             <li><a href="#agents">🤖 Agents</a></li>
             <li><a href="#mcp">🔌 MCP</a></li>
             <li><a href="#plugins">🧩 Plugins</a></li>
             <li><a href="#instructions">📁 Instructions</a></li>
             <li><a href="#recipes">🎯 Recipes</a></li>
-            <li><a href="#tips">⚡ Tips</a></li>
-            <li><a href="#troubleshooting">🆘 Troubleshooting</a></li>
+            <li><a href="#tips">⚡ Power Tips</a></li>
+            <li><a href="#troubleshooting">🆘 Help</a></li>
             <li><a href="#resources">📚 Resources</a></li>
         </ul>
     </nav>
 
     <main class="main-content">
-        <!-- Installation Section -->
-        <section id="installation" class="section">
+        <section id="table-of-contents" class="section intro-section">
             <div class="section-header" role="button" tabindex="0" aria-expanded="true">
-                <h2>📦 Installation</h2>
+                <h2>🧭 Table of Contents</h2>
                 <span class="toggle-icon">−</span>
             </div>
             <div class="section-content">
-                <table class="command-table">
-                    <thead>
-                        <tr>
-                            <th>Platform</th>
-                            <th>Command</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><strong>npm</strong> (all platforms)</td>
-                            <td><code class="copyable">npm install -g @github/copilot</code></td>
-                        </tr>
-                        <tr>
-                            <td><strong>WinGet</strong> (Windows)</td>
-                            <td><code class="copyable">winget install GitHub.Copilot</code></td>
-                        </tr>
-                        <tr>
-                            <td><strong>Homebrew</strong> (macOS/Linux)</td>
-                            <td><code class="copyable">brew install copilot-cli</code></td>
-                        </tr>
-                        <tr>
-                            <td><strong>Install Script</strong> (macOS/Linux)</td>
-                            <td><code class="copyable">curl -fsSL https://gh.io/copilot-install | bash</code></td>
-                        </tr>
-                    </tbody>
-                </table>
+                <p class="lead">Use this page in two ways: learn practical GitHub Copilot workflows first, then jump to the CLI cheat sheet when you need a command or shortcut.</p>
+                <div class="toc-grid">
+                    <div class="toc-card">
+                        <h3>📘 Upskill Guide</h3>
+                        <p>Practical VS Code, troubleshooting, discovery, and prompt workflows from <code>GitHub-Copilot-Upskill.md</code>.</p>
+                        <ul>
+                            <li><a href="#learn-overview">What you'll learn</a></li>
+                            <li><a href="#vscode-copilot">GitHub Copilot in VS Code</a></li>
+                            <li><a href="#troubleshooting-workflows">Troubleshooting workflows</a></li>
+                            <li><a href="#prompt-patterns">Prompt patterns that work</a></li>
+                            <li><a href="#discovery-cheat-sheet">Discovery checklist</a></li>
+                            <li><a href="#upskill-tips">Tips, gotchas, and etiquette</a></li>
+                        </ul>
+                    </div>
+                    <div class="toc-card">
+                        <h3>⚡ CLI Cheat Sheet</h3>
+                        <p>Fast command reference for Copilot CLI usage, configuration, agents, recipes, and troubleshooting.</p>
+                        <ul>
+                            <li><a href="#cli-overview">CLI overview</a></li>
+                            <li><a href="#installation">Installation</a></li>
+                            <li><a href="#authentication">Authentication</a></li>
+                            <li><a href="#slash-commands">Slash commands</a></li>
+                            <li><a href="#recipes">Quick recipes</a></li>
+                            <li><a href="#resources">Resources</a></li>
+                        </ul>
+                    </div>
+                </div>
                 <div class="tip-box">
-                    <strong>Verify installation:</strong>
-                    <code class="copyable">copilot --version</code>
+                    <strong>Navigation tip:</strong> Use the sticky table of contents, search box, collapsible sections, and back-to-top button to move around quickly without blending the learning guide and command reference.
                 </div>
             </div>
         </section>
 
-        <!-- Authentication Section -->
-        <section id="authentication" class="section">
-            <div class="section-header" role="button" tabindex="0" aria-expanded="true">
-                <h2>🔐 Authentication</h2>
-                <span class="toggle-icon">−</span>
+        <div class="content-group upskill-group" aria-labelledby="upskill-title">
+            <div class="group-header">
+                <p class="eyebrow">Part 1</p>
+                <h2 id="upskill-title">📘 GitHub Copilot Upskill Guide</h2>
+                <p>Learn how to use Copilot as a collaborator across VS Code, terminal troubleshooting, code discovery, and daily development tasks.</p>
             </div>
-            <div class="section-content">
-                <table class="command-table">
-                    <thead>
-                        <tr>
-                            <th>Command</th>
-                            <th>Description</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><code class="copyable">copilot login</code></td>
-                            <td>Authenticate via browser-based device code flow</td>
-                        </tr>
-                        <tr>
-                            <td><code class="copyable">copilot login --host HOST</code></td>
-                            <td>Authenticate to a specific GitHub Enterprise instance</td>
-                        </tr>
-                        <tr>
-                            <td><code class="copyable">copilot logout</code></td>
-                            <td>Sign out and remove stored credentials</td>
-                        </tr>
-                    </tbody>
-                </table>
-                <div class="tip-box">
-                    <strong>Alternative:</strong> Set a fine-grained PAT with <strong>Copilot Requests</strong> permission:
-                    <code class="copyable">export GH_TOKEN=your_token_here</code>
+
+            <section id="learn-overview" class="section">
+                <div class="section-header" role="button" tabindex="0" aria-expanded="true">
+                    <h2>🎯 What You'll Learn</h2>
+                    <span class="toggle-icon">−</span>
                 </div>
-            </div>
-        </section>
-
-        <!-- Modes of Operation Section -->
-        <section id="modes" class="section">
-            <div class="section-header" role="button" tabindex="0" aria-expanded="true">
-                <h2>🎮 Modes of Operation</h2>
-                <span class="toggle-icon">−</span>
-            </div>
-            <div class="section-content">
-                <table class="command-table cols-3">
-                    <thead>
-                        <tr>
-                            <th>Mode</th>
-                            <th>How to Start</th>
-                            <th>Description</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><strong>Interactive</strong></td>
-                            <td><code class="copyable">copilot</code></td>
-                            <td>Full conversation — explore, iterate, and build</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Programmatic</strong></td>
-                            <td><code class="copyable">copilot -p "prompt"</code></td>
-                            <td>One-shot prompt — get an answer and exit</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Autopilot</strong></td>
-                            <td><code class="copyable">copilot --autopilot</code></td>
-                            <td>Fully autonomous mode</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Agent Mode</strong></td>
-                            <td><code class="copyable">copilot --agent=NAME</code></td>
-                            <td>Use a specific custom agent</td>
-                        </tr>
-                    </tbody>
-                </table>
-                <div class="tip-box">
-                    <strong>Switch modes during a session:</strong> Press <kbd>Shift+Tab</kbd> to cycle:
-                    <div class="mode-cycle">Interactive → Plan → Autopilot → Interactive</div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Keyboard Shortcuts Section -->
-        <section id="shortcuts" class="section">
-            <div class="section-header" role="button" tabindex="0" aria-expanded="true">
-                <h2>⌨️ Keyboard Shortcuts</h2>
-                <span class="toggle-icon">−</span>
-            </div>
-            <div class="section-content">
-                <table class="command-table shortcuts-table">
-                    <thead>
-                        <tr>
-                            <th>Shortcut</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><kbd>Shift+Tab</kbd></td>
-                            <td>Cycle modes: interactive → plan → autopilot</td>
-                        </tr>
-                        <tr>
-                            <td><kbd>Ctrl+T</kbd></td>
-                            <td>Toggle reasoning visibility (show/hide thinking)</td>
-                        </tr>
-                        <tr>
-                            <td><kbd>Ctrl+S</kbd></td>
-                            <td>Save (e.g., when editing config)</td>
-                        </tr>
-                        <tr>
-                            <td><kbd>Ctrl+G</kbd></td>
-                            <td>Open prompt in your default text editor</td>
-                        </tr>
-                        <tr>
-                            <td><kbd>Ctrl+L</kbd></td>
-                            <td>Clear the terminal screen</td>
-                        </tr>
-                        <tr>
-                            <td><kbd>Ctrl+C</kbd></td>
-                            <td>Cancel / clear input (press twice to exit)</td>
-                        </tr>
-                        <tr>
-                            <td><kbd>Ctrl+D</kbd></td>
-                            <td>Exit the CLI session</td>
-                        </tr>
-                        <tr>
-                            <td><kbd>Esc</kbd></td>
-                            <td>Cancel the current operation</td>
-                        </tr>
-                        <tr>
-                            <td><kbd>↑</kbd> / <kbd>↓</kbd></td>
-                            <td>Navigate command history</td>
-                        </tr>
-                        <tr>
-                            <td><kbd>Tab</kbd></td>
-                            <td>Autocomplete file paths with <code>@</code></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </section>
-
-        <!-- Command-Line Flags Section -->
-        <section id="flags" class="section">
-            <div class="section-header" role="button" tabindex="0" aria-expanded="true">
-                <h2>🔧 Command-Line Flags</h2>
-                <span class="toggle-icon">−</span>
-            </div>
-            <div class="section-content">
-                <table class="command-table">
-                    <thead>
-                        <tr>
-                            <th>Flag</th>
-                            <th>Description</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><code class="copyable">-p "prompt"</code> / <code>--prompt</code></td>
-                            <td>Run in non-interactive (programmatic) mode</td>
-                        </tr>
-                        <tr>
-                            <td><code class="copyable">--agent=NAME</code></td>
-                            <td>Select a specific custom agent</td>
-                        </tr>
-                        <tr>
-                            <td><code class="copyable">--model=MODEL</code></td>
-                            <td>Override the AI model (e.g., <code>gpt-4</code>)</td>
-                        </tr>
-                        <tr>
-                            <td><code class="copyable">--autopilot</code></td>
-                            <td>Enable autonomous mode</td>
-                        </tr>
-                        <tr>
-                            <td><code class="copyable">--yolo</code> / <code>--allow-all</code></td>
-                            <td>Enable all permissions (use with caution!)</td>
-                        </tr>
-                        <tr>
-                            <td><code class="copyable">--experimental</code></td>
-                            <td>Enable experimental features</td>
-                        </tr>
-                        <tr>
-                            <td><code class="copyable">--no-experimental</code></td>
-                            <td>Explicitly disable experimental features</td>
-                        </tr>
-                        <tr>
-                            <td><code class="copyable">--continue</code></td>
-                            <td>Resume your most recent session</td>
-                        </tr>
-                        <tr>
-                            <td><code class="copyable">--resume</code></td>
-                            <td>Choose from a list of previous sessions</td>
-                        </tr>
-                        <tr>
-                            <td><code class="copyable">--max-autopilot-continues N</code></td>
-                            <td>Limit autopilot continuation cycles</td>
-                        </tr>
-                        <tr>
-                            <td><code class="copyable">--config-dir PATH</code></td>
-                            <td>Use a custom configuration directory</td>
-                        </tr>
-                        <tr>
-                            <td><code class="copyable">--output-format FORMAT</code></td>
-                            <td>Specify output format (<code>json</code>, <code>markdown</code>)</td>
-                        </tr>
-                        <tr>
-                            <td><code class="copyable">--share</code></td>
-                            <td>Share session context externally</td>
-                        </tr>
-                        <tr>
-                            <td><code class="copyable">--acp</code></td>
-                            <td>Start as Agent Client Protocol server</td>
-                        </tr>
-                    </tbody>
-                </table>
-                <div class="example-box">
-                    <strong>Example — Autonomous mode with agent:</strong>
-                    <code class="copyable block">copilot --agent=architect --autopilot --yolo -p "Design a microservices API"</code>
-                </div>
-            </div>
-        </section>
-
-        <!-- Slash Commands Section -->
-        <section id="slash-commands" class="section">
-            <div class="section-header" role="button" tabindex="0" aria-expanded="true">
-                <h2>📝 Slash Commands</h2>
-                <span class="toggle-icon">−</span>
-            </div>
-            <div class="section-content">
-                <h3>Session Management</h3>
-                <table class="command-table">
-                    <thead>
-                        <tr>
-                            <th>Command</th>
-                            <th>Description</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><code class="copyable">/help</code></td>
-                            <td>List all available slash commands</td>
-                        </tr>
-                        <tr>
-                            <td><code class="copyable">/exit</code> or <code>/quit</code></td>
-                            <td>Leave the CLI session</td>
-                        </tr>
-                        <tr>
-                            <td><code class="copyable">/clear</code> or <code>/new</code></td>
-                            <td>Start a fresh conversation</td>
-                        </tr>
-                        <tr>
-                            <td><code class="copyable">/compact</code></td>
-                            <td>Summarize conversation to free context space</td>
-                        </tr>
-                        <tr>
-                            <td><code class="copyable">/context</code></td>
-                            <td>Show token usage visualization</td>
-                        </tr>
-                        <tr>
-                            <td><code class="copyable">/usage</code></td>
-                            <td>Display session statistics (requests, tokens, duration)</td>
-                        </tr>
-                        <tr>
-                            <td><code class="copyable">/share</code></td>
-                            <td>Export session as markdown file or GitHub gist</td>
-                        </tr>
-                    </tbody>
-                </table>
-
-                <h3>Code &amp; Review</h3>
-                <table class="command-table">
-                    <thead>
-                        <tr>
-                            <th>Command</th>
-                            <th>Description</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><code class="copyable">/diff</code></td>
-                            <td>Show uncommitted changes in working directory</td>
-                        </tr>
-                        <tr>
-                            <td><code class="copyable">/review</code></td>
-                            <td>Run AI code review on your changes</td>
-                        </tr>
-                        <tr>
-                            <td><code class="copyable">/undo</code> or <code>/rewind</code></td>
-                            <td>Rewind the last turn and revert file changes</td>
-                        </tr>
-                        <tr>
-                            <td><code class="copyable">/pr [view|create|fix|auto]</code></td>
-                            <td>Operate on pull requests for the current branch</td>
-                        </tr>
-                        <tr>
-                            <td><code class="copyable">/copy</code></td>
-                            <td>Copy the last response to the clipboard</td>
-                        </tr>
-                    </tbody>
-                </table>
-
-                <h3>Configuration</h3>
-                <table class="command-table">
-                    <thead>
-                        <tr>
-                            <th>Command</th>
-                            <th>Description</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><code class="copyable">/instructions</code></td>
-                            <td>View loaded custom instruction files</td>
-                        </tr>
-                        <tr>
-                            <td><code class="copyable">/agent</code></td>
-                            <td>Browse and select custom agents</td>
-                        </tr>
-                        <tr>
-                            <td><code class="copyable">/mcp</code></td>
-                            <td>Manage MCP server connections</td>
-                        </tr>
-                        <tr>
-                            <td><code class="copyable">/model</code></td>
-                            <td>Switch between available AI models</td>
-                        </tr>
-                        <tr>
-                            <td><code class="copyable">/experimental</code></td>
-                            <td>Enable experimental features in-session</td>
-                        </tr>
-                        <tr>
-                            <td><code class="copyable">/cwd</code></td>
-                            <td>Confirm working directory scope</td>
-                        </tr>
-                        <tr>
-                            <td><code class="copyable">/add-dir PATH</code></td>
-                            <td>Allow Copilot to read/write a directory</td>
-                        </tr>
-                        <tr>
-                            <td><code class="copyable">/allow-all</code> or <code>/yolo</code></td>
-                            <td>Enable all permissions for this session</td>
-                        </tr>
-                    </tbody>
-                </table>
-
-                <h3>Advanced</h3>
-                <table class="command-table">
-                    <thead>
-                        <tr>
-                            <th>Command</th>
-                            <th>Description</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><code class="copyable">/plan [PROMPT]</code></td>
-                            <td>Create an implementation plan before coding</td>
-                        </tr>
-                        <tr>
-                            <td><code class="copyable">/fleet [PROMPT]</code></td>
-                            <td>Enable parallel subagent execution of parts of a task</td>
-                        </tr>
-                        <tr>
-                            <td><code class="copyable">/delegate TASK</code></td>
-                            <td>Push session to Copilot coding agent on GitHub</td>
-                        </tr>
-                        <tr>
-                            <td><code class="copyable">/remote</code></td>
-                            <td>Enable remote access from GitHub.com and GitHub Mobile</td>
-                        </tr>
-                        <tr>
-                            <td><code class="copyable">/research TOPIC</code></td>
-                            <td>Run a deep research investigation using GitHub search and web sources</td>
-                        </tr>
-                        <tr>
-                            <td><code class="copyable">/tasks</code></td>
-                            <td>View and manage background tasks (subagents and shell sessions)</td>
-                        </tr>
-                        <tr>
-                            <td><code class="copyable">/skills</code></td>
-                            <td>Manage skills for enhanced agent capabilities</td>
-                        </tr>
-                        <tr>
-                            <td><code class="copyable">/changelog [VERSION]</code></td>
-                            <td>Show the CLI changelog</td>
-                        </tr>
-                        <tr>
-                            <td><code class="copyable">/login</code></td>
-                            <td>Authenticate (if not already logged in)</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </section>
-
-        <!-- Special Prefixes Section -->
-        <section id="prefixes" class="section">
-            <div class="section-header" role="button" tabindex="0" aria-expanded="true">
-                <h2>🔤 Special Prefixes</h2>
-                <span class="toggle-icon">−</span>
-            </div>
-            <div class="section-content">
-                <table class="command-table cols-3">
-                    <thead>
-                        <tr>
-                            <th>Prefix</th>
-                            <th>Purpose</th>
-                            <th>Example</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><code class="copyable">@</code></td>
-                            <td>Include file contents in prompt</td>
-                            <td><code class="copyable">@src/Program.cs Explain this file</code></td>
-                        </tr>
-                        <tr>
-                            <td><code class="copyable">!</code></td>
-                            <td>Run shell command (bypasses AI)</td>
-                            <td><code class="copyable">!git status</code></td>
-                        </tr>
-                        <tr>
-                            <td><code class="copyable">&amp;</code></td>
-                            <td>Shortcut for <code>/delegate</code></td>
-                            <td><code class="copyable">&amp; complete the API tests</code></td>
-                        </tr>
-                    </tbody>
-                </table>
-                <div class="mental-model">
-                    <h4>Quick Mental Model:</h4>
-                    <ul>
-                        <li><code>@</code> = "Hey Copilot, look at this file"</li>
-                        <li><code>!</code> = "Hey terminal, run this command"</li>
-                        <li><code>&amp;</code> = "Hey GitHub, take this task and run with it"</li>
+                <div class="section-content">
+                    <ul class="feature-list">
+                        <li>Move beyond autocomplete and use Copilot as a <strong>collaborator</strong>.</li>
+                        <li>Use <strong>chat participants</strong>, <strong>slash commands</strong>, and <strong>context variables</strong> for power-user workflows.</li>
+                        <li>Use <strong>Copilot CLI</strong> in the terminal for shell, git, and troubleshooting help.</li>
+                        <li>Apply real-world patterns for <strong>building</strong>, <strong>debugging</strong>, and <strong>explaining</strong> code and errors.</li>
                     </ul>
                 </div>
-            </div>
-        </section>
+            </section>
 
-        <!-- Custom Agents Section -->
-        <section id="agents" class="section">
-            <div class="section-header" role="button" tabindex="0" aria-expanded="true">
-                <h2>🤖 Custom Agents</h2>
-                <span class="toggle-icon">−</span>
-            </div>
-            <div class="section-content">
-                <p>Custom agents are specialized AI personas defined in <code>.github/agents/</code>.</p>
-                <table class="command-table">
-                    <thead>
-                        <tr>
-                            <th>Command</th>
-                            <th>Description</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><code class="copyable">/agent</code></td>
-                            <td>Browse available agents in-session</td>
-                        </tr>
-                        <tr>
-                            <td><code class="copyable">copilot --agent=NAME</code></td>
-                            <td>Start session with specific agent</td>
-                        </tr>
-                        <tr>
-                            <td><code class="copyable">copilot --agent=NAME -p "..."</code></td>
-                            <td>One-shot prompt with agent</td>
-                        </tr>
-                    </tbody>
-                </table>
-                <div class="agents-grid">
-                    <h4>Example Agents:</h4>
-                    <div class="agent-card">
-                        <span class="agent-icon">🏗️</span>
-                        <strong>blueprint / architect</strong>
-                        <span class="agent-role">System architecture &amp; design</span>
-                    </div>
-                    <div class="agent-card">
-                        <span class="agent-icon">🔨</span>
-                        <strong>forge / developer</strong>
-                        <span class="agent-role">Code implementation</span>
-                    </div>
-                    <div class="agent-card">
-                        <span class="agent-icon">🛡️</span>
-                        <strong>shield / reviewer</strong>
-                        <span class="agent-role">Code review &amp; security</span>
-                    </div>
-                    <div class="agent-card">
-                        <span class="agent-icon">📚</span>
-                        <strong>sage / doc-writer</strong>
-                        <span class="agent-role">Documentation generation</span>
-                    </div>
+            <section id="vscode-copilot" class="section">
+                <div class="section-header" role="button" tabindex="0" aria-expanded="true">
+                    <h2>💻 GitHub Copilot in VS Code</h2>
+                    <span class="toggle-icon">−</span>
                 </div>
-            </div>
-        </section>
-
-        <!-- MCP Section -->
-        <section id="mcp" class="section">
-            <div class="section-header" role="button" tabindex="0" aria-expanded="true">
-                <h2>🔌 MCP (Model Context Protocol)</h2>
-                <span class="toggle-icon">−</span>
-            </div>
-            <div class="section-content">
-                <p>MCP extends Copilot with external tools and data sources.</p>
-                <table class="command-table">
-                    <thead>
-                        <tr>
-                            <th>Command</th>
-                            <th>Description</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><code class="copyable">/mcp</code></td>
-                            <td>View and manage MCP server connections</td>
-                        </tr>
-                        <tr>
-                            <td><code class="copyable">@server-name</code></td>
-                            <td>Reference a specific MCP server in prompts</td>
-                        </tr>
-                    </tbody>
-                </table>
-                <div class="tip-box">
-                    <strong>Config locations:</strong>
-                    <ul>
-                        <li>CLI: <code>.github/copilot/mcp.json</code></li>
-                        <li>VS Code: <code>.vscode/mcp.json</code></li>
-                    </ul>
-                </div>
-                <div class="example-box">
-                    <strong>Example MCP query:</strong>
-                    <code class="copyable block">Using @microsoft-learn, explain EF Core migrations</code>
-                </div>
-            </div>
-        </section>
-
-        <!-- Plugins Section -->
-        <section id="plugins" class="section">
-            <div class="section-header" role="button" tabindex="0" aria-expanded="true">
-                <h2>🧩 Plugins</h2>
-                <span class="toggle-icon">−</span>
-            </div>
-            <div class="section-content">
-                <table class="command-table">
-                    <thead>
-                        <tr>
-                            <th>Command</th>
-                            <th>Description</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><code class="copyable">copilot plugin marketplace list</code></td>
-                            <td>List available plugin marketplaces</td>
-                        </tr>
-                        <tr>
-                            <td><code class="copyable">copilot plugin marketplace add NAME</code></td>
-                            <td>Add a plugin marketplace</td>
-                        </tr>
-                        <tr>
-                            <td><code class="copyable">copilot plugin install NAME</code></td>
-                            <td>Install a plugin</td>
-                        </tr>
-                        <tr>
-                            <td><code class="copyable">copilot plugin list</code></td>
-                            <td>List installed plugins</td>
-                        </tr>
-                    </tbody>
-                </table>
-                <div class="tip-box">
-                    <strong>Default marketplaces:</strong> <code>copilot-plugins</code>, <code>awesome-copilot</code>
-                </div>
-            </div>
-        </section>
-
-        <!-- Custom Instructions Section -->
-        <section id="instructions" class="section">
-            <div class="section-header" role="button" tabindex="0" aria-expanded="true">
-                <h2>📁 Custom Instructions</h2>
-                <span class="toggle-icon">−</span>
-            </div>
-            <div class="section-content">
-                <p>Copilot automatically loads instruction files from your repo:</p>
-                <div class="file-tree">
-                    <pre>.github/
-├── copilot-instructions.md          ← Global: always included
-└── instructions/
-    ├── csharp.instructions.md       ← Conditional: *.cs files
-    └── razor.instructions.md        ← Conditional: *.cshtml files</pre>
-                </div>
-                <div class="tip-box">
-                    <strong>View loaded instructions:</strong>
-                    <code class="copyable">/instructions</code>
-                </div>
-            </div>
-        </section>
-
-        <!-- Quick Recipes Section -->
-        <section id="recipes" class="section">
-            <div class="section-header" role="button" tabindex="0" aria-expanded="true">
-                <h2>🎯 Quick Recipes</h2>
-                <span class="toggle-icon">−</span>
-            </div>
-            <div class="section-content">
-                <div class="recipe-card">
-                    <h4>Explore a New Codebase</h4>
-                    <div class="recipe-steps">
-                        <code class="copyable block">copilot</code>
-                        <code class="copyable block">&gt; What is the structure of this project?</code>
-                        <code class="copyable block">&gt; @README.md Summarize the key features</code>
-                        <code class="copyable block">&gt; @src/main.ts Explain the entry point</code>
-                    </div>
-                </div>
-
-                <div class="recipe-card">
-                    <h4>Code Review Workflow</h4>
-                    <div class="recipe-steps">
-                        <code class="copyable block">copilot</code>
-                        <code class="copyable block">&gt; /diff</code>
-                        <code class="copyable block">&gt; /review</code>
-                        <code class="copyable block">&gt; /share</code>
-                    </div>
-                </div>
-
-                <div class="recipe-card">
-                    <h4>Autonomous Feature Implementation</h4>
-                    <div class="recipe-steps">
-                        <code class="copyable block">copilot --autopilot --yolo -p "Add input validation to the user registration form"</code>
-                    </div>
-                </div>
-
-                <div class="recipe-card">
-                    <h4>Delegate to Copilot Coding Agent</h4>
-                    <div class="recipe-steps">
-                        <code class="copyable block">copilot</code>
-                        <code class="copyable block">&gt; Design a REST API for user management</code>
-                        <code class="copyable block">&gt; /delegate implement this design and open a PR</code>
-                    </div>
-                </div>
-
-                <div class="recipe-card">
-                    <h4>Quick Lookup (Non-Interactive)</h4>
-                    <div class="recipe-steps">
-                        <code class="copyable block">copilot -p "What does the --no-restore flag do in dotnet build?"</code>
-                    </div>
-                </div>
-
-                <div class="recipe-card">
-                    <h4>Switch Model Mid-Session</h4>
-                    <div class="recipe-steps">
-                        <code class="copyable block">/model</code>
-                        <span class="recipe-note"># Select from available options</span>
-                    </div>
-                </div>
-
-                <div class="recipe-card">
-                    <h4>Session Continuity</h4>
-                    <table class="command-table compact">
+                <div class="section-content">
+                    <h3>Ways to Interact</h3>
+                    <table class="command-table cols-3">
+                        <thead>
+                            <tr><th>Mode</th><th>Trigger</th><th>Best For</th></tr>
+                        </thead>
                         <tbody>
-                            <tr>
-                                <td>Resume most recent session</td>
-                                <td><code class="copyable">copilot --continue</code></td>
-                            </tr>
-                            <tr>
-                                <td>Choose from session history</td>
-                                <td><code class="copyable">copilot --resume</code></td>
-                            </tr>
-                            <tr>
-                                <td>Export session for sharing</td>
-                                <td><code class="copyable">/share</code></td>
-                            </tr>
+                            <tr><td><strong>Inline suggestions</strong></td><td>Just start typing</td><td>Fast code completion</td></tr>
+                            <tr><td><strong>Inline Chat</strong></td><td><kbd>Ctrl+I</kbd> / <kbd>Cmd+I</kbd></td><td>Quick edits and refactors in place</td></tr>
+                            <tr><td><strong>Chat view</strong></td><td><kbd>Ctrl+Alt+I</kbd> / <kbd>Cmd+Ctrl+I</kbd></td><td>Multi-turn conversations, planning, explaining</td></tr>
+                            <tr><td><strong>Copilot Edits</strong></td><td><kbd>Ctrl+Shift+I</kbd></td><td>Multi-file coordinated changes</td></tr>
+                            <tr><td><strong>Agent mode</strong></td><td>Chat view → Agent</td><td>Autonomous multi-step tasks</td></tr>
+                        </tbody>
+                    </table>
+
+                    <h3>Chat Participants (<code>@</code>)</h3>
+                    <table class="command-table cols-3">
+                        <thead>
+                            <tr><th>Participant</th><th>What it does</th><th>Example</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td><code class="copyable">@workspace</code></td><td>Knows about your entire project</td><td><code class="copyable">@workspace where is auth handled?</code></td></tr>
+                            <tr><td><code class="copyable">@vscode</code></td><td>Knows VS Code features and settings</td><td><code class="copyable">@vscode how do I change my theme?</code></td></tr>
+                            <tr><td><code class="copyable">@terminal</code></td><td>Knows your terminal and shell</td><td><code class="copyable">@terminal /explain</code></td></tr>
+                            <tr><td><code class="copyable">@github</code></td><td>Queries GitHub issues, PRs, and repos</td><td><code class="copyable">@github show me my open PRs</code></td></tr>
+                        </tbody>
+                    </table>
+                    <div class="tip-box"><strong>Team gem:</strong> Use <code class="copyable">@terminal /explain</code> after running a command to explain exactly what it does, including flags, side effects, and safer alternatives.</div>
+
+                    <h3>Slash Commands (<code>/</code>)</h3>
+                    <table class="command-table">
+                        <thead><tr><th>Command</th><th>Purpose</th></tr></thead>
+                        <tbody>
+                            <tr><td><code class="copyable">/explain</code></td><td>Explain selected code or a command</td></tr>
+                            <tr><td><code class="copyable">/fix</code></td><td>Propose a fix for the selection or diagnostic</td></tr>
+                            <tr><td><code class="copyable">/tests</code></td><td>Generate unit tests for the selection</td></tr>
+                            <tr><td><code class="copyable">/doc</code></td><td>Generate documentation or comments</td></tr>
+                            <tr><td><code class="copyable">/new</code></td><td>Scaffold a new project or file</td></tr>
+                            <tr><td><code class="copyable">/newNotebook</code></td><td>Create a new Jupyter notebook</td></tr>
+                            <tr><td><code class="copyable">/clear</code></td><td>Reset chat context</td></tr>
+                        </tbody>
+                    </table>
+                    <div class="example-box">
+                        <strong>Combine participants and slash commands:</strong>
+                        <code class="copyable block">@workspace /explain how does the login flow work end to end?</code>
+                        <code class="copyable block">@terminal /explain</code>
+                        <code class="copyable block">@workspace /tests for src/services/pipeline.py</code>
+                    </div>
+
+                    <h3>Context Variables (<code>#</code>)</h3>
+                    <table class="command-table">
+                        <thead><tr><th>Variable</th><th>Purpose</th></tr></thead>
+                        <tbody>
+                            <tr><td><code class="copyable">#file</code></td><td>Reference a specific file</td></tr>
+                            <tr><td><code class="copyable">#selection</code></td><td>Current editor selection</td></tr>
+                            <tr><td><code class="copyable">#editor</code></td><td>Currently active editor</td></tr>
+                            <tr><td><code class="copyable">#terminalLastCommand</code></td><td>The last command you ran</td></tr>
+                            <tr><td><code class="copyable">#terminalSelection</code></td><td>Highlighted terminal output</td></tr>
+                            <tr><td><code class="copyable">#codebase</code></td><td>Broader codebase search</td></tr>
+                            <tr><td><code class="copyable">#problems</code></td><td>Current diagnostics/problems panel</td></tr>
+                            <tr><td><code class="copyable">#changes</code></td><td>Uncommitted git changes</td></tr>
+                        </tbody>
+                    </table>
+                    <div class="example-box">
+                        <strong>Prompt examples:</strong>
+                        <code class="copyable block">/fix #problems</code>
+                        <code class="copyable block">Explain #terminalLastCommand and why it failed</code>
+                        <code class="copyable block">Refactor #selection to use async/await</code>
+                        <code class="copyable block">Summarize #changes for a commit message</code>
+                    </div>
+                </div>
+            </section>
+
+            <section id="troubleshooting-workflows" class="section">
+                <div class="section-header" role="button" tabindex="0" aria-expanded="true">
+                    <h2>🛠️ Troubleshooting Workflows</h2>
+                    <span class="toggle-icon">−</span>
+                </div>
+                <div class="section-content">
+                    <div class="recipe-card">
+                        <h4>Explain a Failing Terminal Command</h4>
+                        <ol>
+                            <li>Run the command in the VS Code integrated terminal.</li>
+                            <li>Open Copilot Chat.</li>
+                            <li>Type <code class="copyable">@terminal /explain</code>.</li>
+                            <li>Review the explanation, including likely failure causes and safer alternatives.</li>
+                        </ol>
+                    </div>
+                    <div class="recipe-card">
+                        <h4>Fix an Error from the Problems Panel</h4>
+                        <code class="copyable block">/fix #problems</code>
+                    </div>
+                    <div class="recipe-card">
+                        <h4>Understand a Stack Trace</h4>
+                        <ol>
+                            <li>Select the stack trace in the terminal.</li>
+                            <li>Ask Copilot to connect the trace back to likely responsible files.</li>
+                        </ol>
+                        <code class="copyable block">@workspace explain #terminalSelection and point me to the file most likely responsible</code>
+                    </div>
+                    <div class="recipe-card">
+                        <h4>Debug with the Debugger</h4>
+                        <p>Set a breakpoint, pause execution, then use inline chat to ask why a variable has an unexpected value.</p>
+                        <code class="copyable block">why is variable X null here?</code>
+                    </div>
+                    <div class="recipe-card">
+                        <h4>Turn Changes into a Commit Message</h4>
+                        <code class="copyable block">Write a conventional commit message for #changes</code>
+                    </div>
+                    <div class="recipe-card">
+                        <h4>Understand an Unfamiliar Codebase Quickly</h4>
+                        <code class="copyable block">@workspace give me a tour of this repo — entry points, main modules, and how data flows</code>
+                        <code class="copyable block">@workspace where is &lt;feature&gt; implemented?</code>
+                    </div>
+                </div>
+            </section>
+
+            <section id="prompt-patterns" class="section">
+                <div class="section-header" role="button" tabindex="0" aria-expanded="true">
+                    <h2>🧠 Building Faster: Prompt Patterns That Work</h2>
+                    <span class="toggle-icon">−</span>
+                </div>
+                <div class="section-content">
+                    <div class="recipe-card"><h4>Role + Goal + Constraints</h4><code class="copyable block">You are a senior Python engineer. Refactor #selection to use dataclasses. Keep the public API unchanged and add type hints. Do not add new dependencies.</code></div>
+                    <div class="recipe-card"><h4>Ask for a Plan Before Code</h4><code class="copyable block">@workspace outline the steps to add JWT auth to this API. Don't write code yet — just the plan and files that will change.</code><span class="recipe-note">Then follow up with: Great — implement step 1.</span></div>
+                    <div class="recipe-card"><h4>Generate Tests First</h4><code class="copyable block">/tests for #file:src/services/pipeline.py covering happy path, empty input, and network failure.</code></div>
+                    <div class="recipe-card"><h4>Explain Then Modify</h4><code class="copyable block">/explain #selection</code><code class="copyable block">Now rewrite it to stream results instead of buffering.</code></div>
+                    <div class="recipe-card"><h4>Use <code>#codebase</code> for Cross-File Reasoning</h4><code class="copyable block">#codebase where do we validate customer IDs, and is the logic consistent everywhere?</code></div>
+                </div>
+            </section>
+
+            <section id="discovery-cheat-sheet" class="section">
+                <div class="section-header" role="button" tabindex="0" aria-expanded="true">
+                    <h2>✅ Discovery Cheat Sheet</h2>
+                    <span class="toggle-icon">−</span>
+                </div>
+                <div class="section-content">
+                    <ul class="check-list">
+                        <li><code class="copyable">@terminal /explain</code> after any command you don't fully understand.</li>
+                        <li><code class="copyable">/fix #problems</code> on the next red squiggle you see.</li>
+                        <li>Ask <code class="copyable">@workspace</code> for a tour of a repo you recently joined.</li>
+                        <li>Ask Copilot to write your next commit message from <code class="copyable">#changes</code>.</li>
+                        <li>Install <code class="copyable">gh copilot</code> and alias <code class="copyable">ghcs</code> / <code class="copyable">ghce</code>.</li>
+                        <li>Try Agent mode on a small task, such as adding a README badge.</li>
+                        <li>Use <code class="copyable">/tests</code> on a function that has no tests.</li>
+                        <li>Ask <code class="copyable">@vscode</code> how to configure something in the editor instead of searching the web.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section id="upskill-tips" class="section">
+                <div class="section-header" role="button" tabindex="0" aria-expanded="true">
+                    <h2>🤝 Tips, Gotchas, and Etiquette</h2>
+                    <span class="toggle-icon">−</span>
+                </div>
+                <div class="section-content">
+                    <div class="tips-list">
+                        <div class="tip-item"><span class="tip-number">1</span><div class="tip-content"><strong>Context is king.</strong> The more relevant files, selections, and codebase context you add, the better the answer.</div></div>
+                        <div class="tip-item"><span class="tip-number">2</span><div class="tip-content"><strong>Iterate — don't restart.</strong> Follow-up prompts are cheaper and better than starting fresh.</div></div>
+                        <div class="tip-item"><span class="tip-number">3</span><div class="tip-content"><strong>Verify before you run.</strong> Especially with command suggestions — read the command or explain it first.</div></div>
+                        <div class="tip-item"><span class="tip-number">4</span><div class="tip-content"><strong>Don't paste secrets.</strong> Redact tokens, connection strings, and PII before prompting.</div></div>
+                        <div class="tip-item"><span class="tip-number">5</span><div class="tip-content"><strong>Use <code>/clear</code>.</strong> Reset old context when switching topics.</div></div>
+                        <div class="tip-item"><span class="tip-number">6</span><div class="tip-content"><strong>Keyboard shortcuts pay off.</strong> Memorize inline chat and chat view shortcuts first.</div></div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <div class="content-group cli-group" aria-labelledby="cli-title">
+            <div class="group-header">
+                <p class="eyebrow">Part 2</p>
+                <h2 id="cli-title">⚡ GitHub Copilot CLI Cheat Sheet</h2>
+                <p>Use this separate reference when you need installation steps, commands, shortcuts, flags, agents, MCP, plugins, recipes, and troubleshooting.</p>
+            </div>
+
+            <section id="cli-overview" class="section">
+                <div class="section-header" role="button" tabindex="0" aria-expanded="true">
+                    <h2>⌨️ CLI Overview</h2>
+                    <span class="toggle-icon">−</span>
+                </div>
+                <div class="section-content">
+                    <p><code>gh copilot</code> and Copilot CLI bring Copilot to the terminal for scripting, ops work, shell help, Git help, and quick explanations away from VS Code.</p>
+                    <h3>Two Core <code>gh copilot</code> Commands</h3>
+                    <table class="command-table">
+                        <thead><tr><th>Command</th><th>Purpose</th></tr></thead>
+                        <tbody>
+                            <tr><td><code class="copyable">gh copilot suggest</code></td><td>Ask Copilot to suggest a shell, Git, or GitHub CLI command.</td></tr>
+                            <tr><td><code class="copyable">gh copilot explain</code></td><td>Ask Copilot to explain a command before you run or reuse it.</td></tr>
+                        </tbody>
+                    </table>
+                    <div class="example-box">
+                        <strong>Examples:</strong>
+                        <code class="copyable block">gh copilot suggest "find all files larger than 100MB modified in the last 7 days"</code>
+                        <code class="copyable block">gh copilot suggest -t git "undo my last commit but keep the changes staged"</code>
+                        <code class="copyable block">gh copilot explain "git rebase -i --autosquash HEAD~5"</code>
+                    </div>
+                    <div class="tip-box"><strong>Aliases:</strong> Use <code class="copyable">gh copilot alias -- bash &gt;&gt; ~/.bashrc</code> or your shell equivalent to add <code>ghcs</code> and <code>ghce</code>.</div>
+                </div>
+            </section>
+
+            <section id="installation" class="section">
+                <div class="section-header" role="button" tabindex="0" aria-expanded="true"><h2>📦 Installation</h2><span class="toggle-icon">−</span></div>
+                <div class="section-content">
+                    <table class="command-table">
+                        <thead><tr><th>Platform</th><th>Command</th></tr></thead>
+                        <tbody>
+                            <tr><td><strong>GitHub CLI extension</strong></td><td><code class="copyable">gh extension install github/gh-copilot</code></td></tr>
+                            <tr><td><strong>Upgrade extension</strong></td><td><code class="copyable">gh extension upgrade gh-copilot</code></td></tr>
+                            <tr><td><strong>npm</strong> (all platforms)</td><td><code class="copyable">npm install -g @github/copilot</code></td></tr>
+                            <tr><td><strong>WinGet</strong> (Windows)</td><td><code class="copyable">winget install GitHub.Copilot</code></td></tr>
+                            <tr><td><strong>Homebrew</strong> (macOS/Linux)</td><td><code class="copyable">brew install copilot-cli</code></td></tr>
+                            <tr><td><strong>Install Script</strong> (macOS/Linux)</td><td><code class="copyable">curl -fsSL https://gh.io/copilot-install | bash</code></td></tr>
+                        </tbody>
+                    </table>
+                    <div class="tip-box"><strong>Verify installation:</strong> <code class="copyable">copilot --version</code></div>
+                </div>
+            </section>
+
+            <section id="authentication" class="section">
+                <div class="section-header" role="button" tabindex="0" aria-expanded="true"><h2>🔐 Authentication</h2><span class="toggle-icon">−</span></div>
+                <div class="section-content">
+                    <table class="command-table">
+                        <thead><tr><th>Command</th><th>Description</th></tr></thead>
+                        <tbody>
+                            <tr><td><code class="copyable">copilot login</code></td><td>Authenticate via browser-based device code flow</td></tr>
+                            <tr><td><code class="copyable">copilot login --host HOST</code></td><td>Authenticate to a specific GitHub Enterprise instance</td></tr>
+                            <tr><td><code class="copyable">copilot logout</code></td><td>Sign out and remove stored credentials</td></tr>
+                        </tbody>
+                    </table>
+                    <div class="tip-box"><strong>Alternative:</strong> Set a fine-grained PAT with <strong>Copilot Requests</strong> permission: <code class="copyable">export GH_TOKEN=your_token_here</code></div>
+                </div>
+            </section>
+
+            <section id="modes" class="section">
+                <div class="section-header" role="button" tabindex="0" aria-expanded="true"><h2>🎮 Modes of Operation</h2><span class="toggle-icon">−</span></div>
+                <div class="section-content">
+                    <table class="command-table cols-3">
+                        <thead><tr><th>Mode</th><th>How to Start</th><th>Description</th></tr></thead>
+                        <tbody>
+                            <tr><td><strong>Interactive</strong></td><td><code class="copyable">copilot</code></td><td>Full conversation — explore, iterate, and build</td></tr>
+                            <tr><td><strong>Programmatic</strong></td><td><code class="copyable">copilot -p "prompt"</code></td><td>One-shot prompt — get an answer and exit</td></tr>
+                            <tr><td><strong>Autopilot</strong></td><td><code class="copyable">copilot --autopilot</code></td><td>Fully autonomous mode</td></tr>
+                            <tr><td><strong>Agent Mode</strong></td><td><code class="copyable">copilot --agent=NAME</code></td><td>Use a specific custom agent</td></tr>
+                        </tbody>
+                    </table>
+                    <div class="tip-box"><strong>Switch modes during a session:</strong> Press <kbd>Shift+Tab</kbd> to cycle: <span class="mode-cycle">Interactive → Plan → Autopilot → Interactive</span></div>
+                </div>
+            </section>
+
+            <section id="shortcuts" class="section">
+                <div class="section-header" role="button" tabindex="0" aria-expanded="true"><h2>⌨️ Keyboard Shortcuts</h2><span class="toggle-icon">−</span></div>
+                <div class="section-content">
+                    <table class="command-table shortcuts-table">
+                        <thead><tr><th>Shortcut</th><th>Action</th></tr></thead>
+                        <tbody>
+                            <tr><td><kbd>Shift+Tab</kbd></td><td>Cycle modes: interactive → plan → autopilot</td></tr>
+                            <tr><td><kbd>Ctrl+T</kbd></td><td>Toggle reasoning visibility</td></tr>
+                            <tr><td><kbd>Ctrl+S</kbd></td><td>Save when editing config</td></tr>
+                            <tr><td><kbd>Ctrl+G</kbd></td><td>Open prompt in your default text editor</td></tr>
+                            <tr><td><kbd>Ctrl+L</kbd></td><td>Clear the terminal screen</td></tr>
+                            <tr><td><kbd>Ctrl+C</kbd></td><td>Cancel / clear input; press twice to exit</td></tr>
+                            <tr><td><kbd>Ctrl+D</kbd></td><td>Exit the CLI session</td></tr>
+                            <tr><td><kbd>Esc</kbd></td><td>Cancel the current operation</td></tr>
+                            <tr><td><kbd>↑</kbd> / <kbd>↓</kbd></td><td>Navigate command history</td></tr>
+                            <tr><td><kbd>Tab</kbd></td><td>Autocomplete file paths with <code>@</code></td></tr>
                         </tbody>
                     </table>
                 </div>
-            </div>
-        </section>
+            </section>
 
-        <!-- Power Tips Section -->
-        <section id="tips" class="section">
-            <div class="section-header" role="button" tabindex="0" aria-expanded="true">
-                <h2>⚡ Power Tips</h2>
-                <span class="toggle-icon">−</span>
-            </div>
-            <div class="section-content">
-                <div class="tips-list">
-                    <div class="tip-item">
-                        <span class="tip-number">1</span>
-                        <div class="tip-content">
-                            <strong>Batch context loading:</strong> Reference multiple files at once:
-                            <code class="copyable block">@src/models/User.cs @src/models/Task.cs Compare these models</code>
-                        </div>
-                    </div>
-                    <div class="tip-item">
-                        <span class="tip-number">2</span>
-                        <div class="tip-content">
-                            <strong>Context management:</strong> When your context fills up, use <code>/compact</code> to summarize and free space.
-                        </div>
-                    </div>
-                    <div class="tip-item">
-                        <span class="tip-number">3</span>
-                        <div class="tip-content">
-                            <strong>Tab completion:</strong> Type <code>@</code> then start typing a file path — use Tab to autocomplete.
-                        </div>
-                    </div>
-                    <div class="tip-item">
-                        <span class="tip-number">4</span>
-                        <div class="tip-content">
-                            <strong>Escape hatch:</strong> Use <code>!</code> for quick shell commands without leaving your conversation.
-                        </div>
-                    </div>
-                    <div class="tip-item">
-                        <span class="tip-number">5</span>
-                        <div class="tip-content">
-                            <strong>Trust once:</strong> Choose "Yes, and remember this folder" to skip the trust prompt next time.
-                        </div>
-                    </div>
-                    <div class="tip-item">
-                        <span class="tip-number">6</span>
-                        <div class="tip-content">
-                            <strong>Model switching:</strong> Use <code>/model</code> to balance speed vs. capability based on task complexity.
-                        </div>
-                    </div>
-                    <div class="tip-item">
-                        <span class="tip-number">7</span>
-                        <div class="tip-content">
-                            <strong>Session export:</strong> Use <code>/share</code> to save design discussions as markdown for team review.
-                        </div>
-                    </div>
+            <section id="flags" class="section">
+                <div class="section-header" role="button" tabindex="0" aria-expanded="true"><h2>🔧 Command-Line Flags</h2><span class="toggle-icon">−</span></div>
+                <div class="section-content">
+                    <table class="command-table">
+                        <thead><tr><th>Flag</th><th>Description</th></tr></thead>
+                        <tbody>
+                            <tr><td><code class="copyable">-p "prompt"</code> / <code class="copyable">--prompt</code></td><td>Run in non-interactive mode</td></tr>
+                            <tr><td><code class="copyable">--agent=NAME</code></td><td>Select a specific custom agent</td></tr>
+                            <tr><td><code class="copyable">--model=MODEL</code></td><td>Override the AI model</td></tr>
+                            <tr><td><code class="copyable">--autopilot</code></td><td>Enable autonomous mode</td></tr>
+                            <tr><td><code class="copyable">--yolo</code> / <code class="copyable">--allow-all</code></td><td>Enable all permissions; use with caution</td></tr>
+                            <tr><td><code class="copyable">--experimental</code></td><td>Enable experimental features</td></tr>
+                            <tr><td><code class="copyable">--no-experimental</code></td><td>Disable experimental features</td></tr>
+                            <tr><td><code class="copyable">--continue</code></td><td>Resume your most recent session</td></tr>
+                            <tr><td><code class="copyable">--resume</code></td><td>Choose from previous sessions</td></tr>
+                            <tr><td><code class="copyable">--max-autopilot-continues N</code></td><td>Limit autopilot continuation cycles</td></tr>
+                            <tr><td><code class="copyable">--config-dir PATH</code></td><td>Use a custom configuration directory</td></tr>
+                            <tr><td><code class="copyable">--output-format FORMAT</code></td><td>Specify output format such as JSON or Markdown</td></tr>
+                            <tr><td><code class="copyable">--share</code></td><td>Share session context externally</td></tr>
+                            <tr><td><code class="copyable">--acp</code></td><td>Start as Agent Client Protocol server</td></tr>
+                        </tbody>
+                    </table>
+                    <div class="example-box"><strong>Example:</strong><code class="copyable block">copilot --agent=architect --autopilot --yolo -p "Design a microservices API"</code></div>
                 </div>
-            </div>
-        </section>
+            </section>
 
-        <!-- Troubleshooting Section -->
-        <section id="troubleshooting" class="section">
-            <div class="section-header" role="button" tabindex="0" aria-expanded="true">
-                <h2>🆘 Troubleshooting</h2>
-                <span class="toggle-icon">−</span>
-            </div>
-            <div class="section-content">
-                <table class="command-table troubleshooting-table">
-                    <thead>
-                        <tr>
-                            <th>Issue</th>
-                            <th>Solution</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><code>copilot: command not found</code></td>
-                            <td>Ensure npm global bin is in PATH: <code class="copyable">npm bin -g</code></td>
-                        </tr>
-                        <tr>
-                            <td>Custom agents not appearing</td>
-                            <td>Run from repo root, check <code>.github/agents/</code> exists</td>
-                        </tr>
-                        <tr>
-                            <td>MCP server not connecting</td>
-                            <td>Verify Node.js 22+, check JSON config syntax</td>
-                        </tr>
-                        <tr>
-                            <td>Session context full</td>
-                            <td>Run <code class="copyable">/compact</code> to summarize and free space</td>
-                        </tr>
-                        <tr>
-                            <td>Authentication expired</td>
-                            <td>Run <code class="copyable">/login</code> or <code class="copyable">copilot login</code></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </section>
-
-        <!-- Resources Section -->
-        <section id="resources" class="section">
-            <div class="section-header" role="button" tabindex="0" aria-expanded="true">
-                <h2>📚 Resources</h2>
-                <span class="toggle-icon">−</span>
-            </div>
-            <div class="section-content">
-                <div class="resources-grid">
-                    <a href="https://docs.github.com/en/copilot/github-copilot-in-the-cli" class="resource-link" target="_blank" rel="noopener noreferrer">
-                        <span class="resource-icon">📖</span>
-                        <span class="resource-text">GitHub Copilot CLI Documentation</span>
-                    </a>
-                    <a href="https://docs.github.com/en/copilot/reference/copilot-cli-reference/cli-command-reference" class="resource-link" target="_blank" rel="noopener noreferrer">
-                        <span class="resource-icon">📋</span>
-                        <span class="resource-text">CLI Command Reference</span>
-                    </a>
-                    <a href="https://docs.github.com/en/copilot/how-tos/copilot-cli/customize-copilot/add-custom-instructions" class="resource-link" target="_blank" rel="noopener noreferrer">
-                        <span class="resource-icon">⚙️</span>
-                        <span class="resource-text">Custom Instructions Guide</span>
-                    </a>
-                    <a href="https://docs.github.com/en/copilot/how-tos/copilot-cli/customize-copilot/create-custom-agents-for-cli" class="resource-link" target="_blank" rel="noopener noreferrer">
-                        <span class="resource-icon">🤖</span>
-                        <span class="resource-text">Custom Agents Guide</span>
-                    </a>
-                    <a href="https://modelcontextprotocol.io/" class="resource-link" target="_blank" rel="noopener noreferrer">
-                        <span class="resource-icon">🔌</span>
-                        <span class="resource-text">MCP Protocol</span>
-                    </a>
+            <section id="slash-commands" class="section">
+                <div class="section-header" role="button" tabindex="0" aria-expanded="true"><h2>📝 Slash Commands</h2><span class="toggle-icon">−</span></div>
+                <div class="section-content">
+                    <h3>Session Management</h3>
+                    <table class="command-table"><thead><tr><th>Command</th><th>Description</th></tr></thead><tbody>
+                        <tr><td><code class="copyable">/help</code></td><td>List available slash commands</td></tr>
+                        <tr><td><code class="copyable">/exit</code> or <code class="copyable">/quit</code></td><td>Leave the CLI session</td></tr>
+                        <tr><td><code class="copyable">/clear</code> or <code class="copyable">/new</code></td><td>Start a fresh conversation</td></tr>
+                        <tr><td><code class="copyable">/compact</code></td><td>Summarize conversation to free context space</td></tr>
+                        <tr><td><code class="copyable">/context</code></td><td>Show token usage visualization</td></tr>
+                        <tr><td><code class="copyable">/usage</code></td><td>Display session statistics</td></tr>
+                        <tr><td><code class="copyable">/share</code></td><td>Export session as markdown or gist</td></tr>
+                    </tbody></table>
+                    <h3>Code &amp; Review</h3>
+                    <table class="command-table"><thead><tr><th>Command</th><th>Description</th></tr></thead><tbody>
+                        <tr><td><code class="copyable">/diff</code></td><td>Show uncommitted changes</td></tr>
+                        <tr><td><code class="copyable">/review</code></td><td>Run AI code review on changes</td></tr>
+                        <tr><td><code class="copyable">/undo</code> or <code class="copyable">/rewind</code></td><td>Rewind the last turn and revert file changes</td></tr>
+                        <tr><td><code class="copyable">/pr [view|create|fix|auto]</code></td><td>Operate on pull requests for the current branch</td></tr>
+                        <tr><td><code class="copyable">/copy</code></td><td>Copy the last response to the clipboard</td></tr>
+                    </tbody></table>
+                    <h3>Configuration and Advanced</h3>
+                    <table class="command-table"><thead><tr><th>Command</th><th>Description</th></tr></thead><tbody>
+                        <tr><td><code class="copyable">/instructions</code></td><td>View loaded custom instruction files</td></tr>
+                        <tr><td><code class="copyable">/agent</code></td><td>Browse and select custom agents</td></tr>
+                        <tr><td><code class="copyable">/mcp</code></td><td>Manage MCP server connections</td></tr>
+                        <tr><td><code class="copyable">/model</code></td><td>Switch between available AI models</td></tr>
+                        <tr><td><code class="copyable">/experimental</code></td><td>Enable experimental features in-session</td></tr>
+                        <tr><td><code class="copyable">/cwd</code></td><td>Confirm working directory scope</td></tr>
+                        <tr><td><code class="copyable">/add-dir PATH</code></td><td>Allow Copilot to read/write a directory</td></tr>
+                        <tr><td><code class="copyable">/allow-all</code> or <code class="copyable">/yolo</code></td><td>Enable all permissions</td></tr>
+                        <tr><td><code class="copyable">/plan [PROMPT]</code></td><td>Create an implementation plan before coding</td></tr>
+                        <tr><td><code class="copyable">/fleet [PROMPT]</code></td><td>Enable parallel subagent execution</td></tr>
+                        <tr><td><code class="copyable">/delegate TASK</code></td><td>Push session to Copilot coding agent on GitHub</td></tr>
+                        <tr><td><code class="copyable">/research TOPIC</code></td><td>Run a deep research investigation</td></tr>
+                        <tr><td><code class="copyable">/tasks</code></td><td>View and manage background tasks</td></tr>
+                        <tr><td><code class="copyable">/skills</code></td><td>Manage skills for enhanced capabilities</td></tr>
+                    </tbody></table>
                 </div>
-            </div>
-        </section>
+            </section>
+
+            <section id="prefixes" class="section">
+                <div class="section-header" role="button" tabindex="0" aria-expanded="true"><h2>🔤 Special Prefixes</h2><span class="toggle-icon">−</span></div>
+                <div class="section-content">
+                    <table class="command-table cols-3"><thead><tr><th>Prefix</th><th>Purpose</th><th>Example</th></tr></thead><tbody>
+                        <tr><td><code class="copyable">@</code></td><td>Include file contents in prompt</td><td><code class="copyable">@src/Program.cs Explain this file</code></td></tr>
+                        <tr><td><code class="copyable">!</code></td><td>Run shell command without AI</td><td><code class="copyable">!git status</code></td></tr>
+                        <tr><td><code class="copyable">&amp;</code></td><td>Shortcut for <code>/delegate</code></td><td><code class="copyable">&amp; complete the API tests</code></td></tr>
+                    </tbody></table>
+                    <div class="mental-model"><h4>Quick Mental Model</h4><ul><li><code>@</code> = "Hey Copilot, look at this file"</li><li><code>!</code> = "Hey terminal, run this command"</li><li><code>&amp;</code> = "Hey GitHub, take this task and run with it"</li></ul></div>
+                </div>
+            </section>
+
+            <section id="agents" class="section">
+                <div class="section-header" role="button" tabindex="0" aria-expanded="true"><h2>🤖 Custom Agents</h2><span class="toggle-icon">−</span></div>
+                <div class="section-content">
+                    <p>Custom agents are specialized AI personas defined in <code>.github/agents/</code>.</p>
+                    <table class="command-table"><thead><tr><th>Command</th><th>Description</th></tr></thead><tbody>
+                        <tr><td><code class="copyable">/agent</code></td><td>Browse available agents in-session</td></tr>
+                        <tr><td><code class="copyable">copilot --agent=NAME</code></td><td>Start a session with a specific agent</td></tr>
+                        <tr><td><code class="copyable">copilot --agent=NAME -p "..."</code></td><td>One-shot prompt with agent</td></tr>
+                    </tbody></table>
+                    <div class="agents-grid"><h4>Example agents:</h4><div class="agent-card"><span class="agent-icon">🏗️</span><strong>blueprint / architect</strong><span class="agent-role">System architecture and design</span></div><div class="agent-card"><span class="agent-icon">🔨</span><strong>forge / developer</strong><span class="agent-role">Code implementation</span></div><div class="agent-card"><span class="agent-icon">🛡️</span><strong>shield / reviewer</strong><span class="agent-role">Code review and security</span></div><div class="agent-card"><span class="agent-icon">📚</span><strong>sage / doc-writer</strong><span class="agent-role">Documentation generation</span></div></div>
+                </div>
+            </section>
+
+            <section id="mcp" class="section">
+                <div class="section-header" role="button" tabindex="0" aria-expanded="true"><h2>🔌 MCP (Model Context Protocol)</h2><span class="toggle-icon">−</span></div>
+                <div class="section-content">
+                    <p>MCP extends Copilot with external tools and data sources.</p>
+                    <table class="command-table"><thead><tr><th>Command</th><th>Description</th></tr></thead><tbody><tr><td><code class="copyable">/mcp</code></td><td>View and manage MCP server connections</td></tr><tr><td><code class="copyable">@server-name</code></td><td>Reference a specific MCP server in prompts</td></tr></tbody></table>
+                    <div class="tip-box"><strong>Config locations:</strong><ul><li>CLI: <code>.github/copilot/mcp.json</code></li><li>VS Code: <code>.vscode/mcp.json</code></li></ul></div>
+                    <div class="example-box"><strong>Example MCP query:</strong><code class="copyable block">Using @microsoft-learn, explain EF Core migrations</code></div>
+                </div>
+            </section>
+
+            <section id="plugins" class="section">
+                <div class="section-header" role="button" tabindex="0" aria-expanded="true"><h2>🧩 Plugins</h2><span class="toggle-icon">−</span></div>
+                <div class="section-content">
+                    <table class="command-table"><thead><tr><th>Command</th><th>Description</th></tr></thead><tbody><tr><td><code class="copyable">copilot plugin marketplace list</code></td><td>List available plugin marketplaces</td></tr><tr><td><code class="copyable">copilot plugin marketplace add NAME</code></td><td>Add a plugin marketplace</td></tr><tr><td><code class="copyable">copilot plugin install NAME</code></td><td>Install a plugin</td></tr><tr><td><code class="copyable">copilot plugin list</code></td><td>List installed plugins</td></tr></tbody></table>
+                    <div class="tip-box"><strong>Default marketplaces:</strong> <code>copilot-plugins</code>, <code>awesome-copilot</code></div>
+                </div>
+            </section>
+
+            <section id="instructions" class="section">
+                <div class="section-header" role="button" tabindex="0" aria-expanded="true"><h2>📁 Custom Instructions</h2><span class="toggle-icon">−</span></div>
+                <div class="section-content"><p>Copilot automatically loads instruction files from your repo:</p><div class="file-tree"><pre>.github/
+├── copilot-instructions.md          ← Global: always included
+└── instructions/
+    ├── csharp.instructions.md       ← Conditional: *.cs files
+    └── razor.instructions.md        ← Conditional: *.cshtml files</pre></div><div class="tip-box"><strong>View loaded instructions:</strong> <code class="copyable">/instructions</code></div></div>
+            </section>
+
+            <section id="recipes" class="section">
+                <div class="section-header" role="button" tabindex="0" aria-expanded="true"><h2>🎯 Quick Recipes</h2><span class="toggle-icon">−</span></div>
+                <div class="section-content">
+                    <div class="recipe-card"><h4>Explore a New Codebase</h4><div class="recipe-steps"><code class="copyable block">copilot</code><code class="copyable block">&gt; What is the structure of this project?</code><code class="copyable block">&gt; @README.md Summarize the key features</code></div></div>
+                    <div class="recipe-card"><h4>Code Review Workflow</h4><div class="recipe-steps"><code class="copyable block">copilot</code><code class="copyable block">&gt; /diff</code><code class="copyable block">&gt; /review</code><code class="copyable block">&gt; /share</code></div></div>
+                    <div class="recipe-card"><h4>Autonomous Feature Implementation</h4><div class="recipe-steps"><code class="copyable block">copilot --autopilot --yolo -p "Add input validation to the user registration form"</code></div></div>
+                    <div class="recipe-card"><h4>Delegate to Copilot Coding Agent</h4><div class="recipe-steps"><code class="copyable block">copilot</code><code class="copyable block">&gt; Design a REST API for user management</code><code class="copyable block">&gt; /delegate implement this design and open a PR</code></div></div>
+                    <div class="recipe-card"><h4>Quick Lookup</h4><div class="recipe-steps"><code class="copyable block">copilot -p "What does the --no-restore flag do in dotnet build?"</code></div></div>
+                    <div class="recipe-card"><h4>Session Continuity</h4><table class="command-table compact"><tbody><tr><td>Resume most recent session</td><td><code class="copyable">copilot --continue</code></td></tr><tr><td>Choose from session history</td><td><code class="copyable">copilot --resume</code></td></tr><tr><td>Export session for sharing</td><td><code class="copyable">/share</code></td></tr></tbody></table></div>
+                </div>
+            </section>
+
+            <section id="tips" class="section">
+                <div class="section-header" role="button" tabindex="0" aria-expanded="true"><h2>⚡ CLI Power Tips</h2><span class="toggle-icon">−</span></div>
+                <div class="section-content"><div class="tips-list"><div class="tip-item"><span class="tip-number">1</span><div class="tip-content"><strong>Batch context loading:</strong> Reference multiple files at once with <code class="copyable">@src/models/User.cs @src/models/Task.cs Compare these models</code>.</div></div><div class="tip-item"><span class="tip-number">2</span><div class="tip-content"><strong>Context management:</strong> Use <code class="copyable">/compact</code> when context fills up.</div></div><div class="tip-item"><span class="tip-number">3</span><div class="tip-content"><strong>Tab completion:</strong> Type <code>@</code> then use Tab to autocomplete file paths.</div></div><div class="tip-item"><span class="tip-number">4</span><div class="tip-content"><strong>Escape hatch:</strong> Use <code>!</code> for quick shell commands.</div></div><div class="tip-item"><span class="tip-number">5</span><div class="tip-content"><strong>Model switching:</strong> Use <code class="copyable">/model</code> to balance speed and capability.</div></div></div></div>
+            </section>
+
+            <section id="troubleshooting" class="section">
+                <div class="section-header" role="button" tabindex="0" aria-expanded="true"><h2>🆘 CLI Troubleshooting</h2><span class="toggle-icon">−</span></div>
+                <div class="section-content"><table class="command-table troubleshooting-table"><thead><tr><th>Issue</th><th>Solution</th></tr></thead><tbody><tr><td><code>copilot: command not found</code></td><td>Ensure npm global bin is in PATH: <code class="copyable">npm bin -g</code></td></tr><tr><td>Custom agents not appearing</td><td>Run from repo root and check <code>.github/agents/</code> exists</td></tr><tr><td>MCP server not connecting</td><td>Verify Node.js 22+ and check JSON config syntax</td></tr><tr><td>Session context full</td><td>Run <code class="copyable">/compact</code></td></tr><tr><td>Authentication expired</td><td>Run <code class="copyable">/login</code> or <code class="copyable">copilot login</code></td></tr></tbody></table></div>
+            </section>
+
+            <section id="resources" class="section">
+                <div class="section-header" role="button" tabindex="0" aria-expanded="true"><h2>📚 Resources</h2><span class="toggle-icon">−</span></div>
+                <div class="section-content"><div class="resources-grid"><a href="GitHub-Copilot-Upskill.md" class="resource-link"><span class="resource-icon">📄</span><span class="resource-text">Source Upskill Markdown</span></a><a href="https://docs.github.com/copilot" class="resource-link" target="_blank" rel="noopener noreferrer"><span class="resource-icon">📖</span><span class="resource-text">GitHub Copilot Docs</span></a><a href="https://code.visualstudio.com/docs/copilot/overview" class="resource-link" target="_blank" rel="noopener noreferrer"><span class="resource-icon">💻</span><span class="resource-text">Copilot in VS Code</span></a><a href="https://docs.github.com/en/copilot/github-copilot-in-the-cli" class="resource-link" target="_blank" rel="noopener noreferrer"><span class="resource-icon">⌨️</span><span class="resource-text">Copilot CLI Documentation</span></a><a href="https://docs.github.com/en/copilot/reference/copilot-cli-reference/cli-command-reference" class="resource-link" target="_blank" rel="noopener noreferrer"><span class="resource-icon">📋</span><span class="resource-text">CLI Command Reference</span></a><a href="https://modelcontextprotocol.io/" class="resource-link" target="_blank" rel="noopener noreferrer"><span class="resource-icon">🔌</span><span class="resource-text">MCP Protocol</span></a></div></div>
+            </section>
+        </div>
     </main>
 
     <footer class="footer">
         <div class="footer-content">
-            <p>💡 <strong>Pro tip:</strong> Type <code>/help</code> inside any Copilot CLI session to see the complete list of available commands!</p>
-            <p class="last-updated">Last updated: April 2025</p>
+            <p>💡 <strong>Pro tip:</strong> Learn the workflow first, then use the CLI cheat sheet as your quick reference.</p>
+            <p class="last-updated">Last updated: August 2026</p>
         </div>
     </footer>
 
     <button type="button" id="back-to-top" class="back-to-top" aria-label="Back to top">↑</button>
-
     <div id="copy-toast" class="copy-toast">Copied to clipboard!</div>
-
     <script src="script.js"></script>
 </body>
 </html>
