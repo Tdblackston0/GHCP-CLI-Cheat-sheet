@@ -1,12 +1,12 @@
 # 🚀 GitHub Copilot Cheat Sheet
 
-[![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-Live-brightgreen)](https://tdblackston0.github.io/GHCP-CLI-Cheat-sheet-/)
+[![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-Live-brightgreen)](https://tdblackston0.github.io/GHCP-Cheat-sheet-/)
 
 > A one stop shop for upskilling on GitHub Copilot - an interactive, one-page website that blends practical **VS Code workflows** with the **Copilot CLI** command reference.
 
 ## 🌐 Live Website
 
-**Visit the cheat sheet:** [GitHub Copilot Cheat Sheet](https://tdblackston0.github.io/GHCP-CLI-Cheat-sheet/)
+**Visit the cheat sheet:** [GitHub Copilot Cheat Sheet](https://tdblackston0.github.io/GHCP-Cheat-sheet/)
 
 ## ✨ Features
 
